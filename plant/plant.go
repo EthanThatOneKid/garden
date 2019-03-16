@@ -12,22 +12,22 @@ type Plant struct {
   GrowthInstructions [][]string
 }
 
-func (p Plant) Grow() { // https://en.wikipedia.org/wiki/L-system
+func (p Plant) Grow() ([]string) { // https://en.wikipedia.org/wiki/L-system
   prev := p.Generations[len(p.Generations) - 1]
   fmt.Println(prev)
   next := ""
   for i := range prev {
     cur := string(prev[i])
-    //rule_loop:
+    rule_loop:
     for j := range p.GrowthInstructions {
-      from := p.GrowthInstructions[j][0]
-      to := p.GrowthInstructions[j][1]
-      if cur == from { // "mismatched types byte and string"
+      from := string(p.GrowthInstructions[j][0])
+      to := string(p.GrowthInstructions[j][1])
+      if cur == from {
         cur = to
-        // break rule_loop
+        break rule_loop
       }
     }
     next += cur
   }
-  p.Generations = append(p.Generations, next)
+  return append(p.Generations, next)
 }
