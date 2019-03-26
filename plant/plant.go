@@ -1,27 +1,24 @@
 package plant
 
 import (
-  "fmt"
+  // "fmt"
   // "math"
   // "strings"
 )
 
 type Plant struct {
   Name string
-  Generations []string
-  GrowthInstructions [][]string
+  Gens, GrowthConfigX, GrowthConfigY []string
 }
 
-func (p Plant) Grow() ([]string) { // https://en.wikipedia.org/wiki/L-system
-  prev := p.Generations[len(p.Generations) - 1]
-  fmt.Println(prev)
+func (p *Plant) Grow(epochs int) {
+  prev := p.Gens[len(p.Gens) - 1]
   next := ""
   for i := range prev {
     cur := string(prev[i])
-    rule_loop:
-    for j := range p.GrowthInstructions {
-      from := string(p.GrowthInstructions[j][0])
-      to := string(p.GrowthInstructions[j][1])
+    rule_loop: for j := range p.GrowthConfigX {
+      from := string(p.GrowthConfigX[j])
+      to := string(p.GrowthConfigY[j])
       if cur == from {
         cur = to
         break rule_loop
@@ -29,5 +26,8 @@ func (p Plant) Grow() ([]string) { // https://en.wikipedia.org/wiki/L-system
     }
     next += cur
   }
-  return append(p.Generations, next)
+  p.Gens = append(p.Gens, next)
+  if epochs > 1 {
+    p.Grow(epochs - 1)
+  }
 }
