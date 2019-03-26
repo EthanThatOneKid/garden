@@ -1,2 +1,2 @@
 # garden
-Simulated gardening written in Go
+Simulated gardening written in Python
