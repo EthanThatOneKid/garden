@@ -11,6 +11,26 @@ type Plant struct {
   Gens, GrowthConfigX, GrowthConfigY []string
 }
 
+func (p *Plant) Phase(phaseConfigX []string, phaseConfigY []string) {
+  for i := range p.Gens {
+    accumulator := ""
+    for j := range p.Gens[i] {
+      cur := string(p.Gens[i][j])
+      rule_loop: for k := range phaseConfigX {
+        from := string(phaseConfigX[k])
+        to := string(phaseConfigY[k])
+        if cur == from {
+          accumulator += to
+          break rule_loop
+        } else {
+          accumulator += cur
+        }
+      }
+    }
+    p.Gens[i] = accumulator
+  }
+}
+
 func (p *Plant) Grow(epochs int) {
   prev := p.Gens[len(p.Gens) - 1]
   next := ""
