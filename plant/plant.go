@@ -14,12 +14,13 @@ func getOffset(prevLen, prevOff, curLen int) (genOff int) {
   return
 }
 
+// TODO : https://www.sohamkamani.com/blog/2017/10/18/parsing-json-in-golang/
 type Plant struct {
   Name string
   Gens, GrowthConfigX, GrowthConfigY []string
 }
 
-func (p Plant) Print() (string) {
+func (p Plant) Print(printConfigX, printConfigY []string) (string) {
   result := ""
   prevGenLen, prevOff := 0, 0
   for i := len(p.Gens) - 1; i >= 0; i-- {
@@ -27,18 +28,17 @@ func (p Plant) Print() (string) {
     chars := strings.Split(string(p.Gens[i]), "")
     // TODO : for each character, see what translate to for rendering bc rn its hardcoded
     for j := range chars {
-      gimme := string(chars[j])
-      if gimme == "A" {
-        gimmeRow += "\\"
-      }
-      if gimme == "B" {
-        gimmeRow += "/"
-      }
-      if gimme == "F" {
-        gimmeRow += "o"
+      cur := string(chars[j])
+      rule_loop: for k := range printConfigX {
+        from := string(printConfigX[k])
+        to := string(printConfigY[k])
+        if cur == from {
+          gimmeRow += to
+          break rule_loop
+        }
       }
     }
-    curLen := len(p.Gens[i])
+    curLen := len(gimmeRow)
     genOffset := getOffset(prevGenLen, prevOff, curLen)
     prevGenLen = curLen
     prevOff = genOffset
@@ -47,7 +47,7 @@ func (p Plant) Print() (string) {
   return result
 }
 
-func (p *Plant) Phase(phaseConfigX []string, phaseConfigY []string, layers int) {
+func (p *Plant) Phase(phaseConfigX, phaseConfigY []string, layers int) {
   from := len(p.Gens) - 1
   to := from - layers
   for i := from; i > to; i-- {
