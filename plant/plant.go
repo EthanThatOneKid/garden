@@ -1,18 +1,43 @@
+// TODO : https://www.sohamkamani.com/blog/2017/10/18/parsing-json-in-golang/
 package plant
+
+// +--------------+
+// | Dependencies |
+// +--------------+
 
 import (
   // "fmt"
   // "math"
+  "os"
   "strings"
   "io/ioutil"
 )
 
-func getOffset(prevLen, prevOff, curLen int) (genOff int) {
-  genOff = prevOff + int((prevLen / 2) - (curLen / 2))
-  if genOff < 0 {
-    genOff = 0
+// +---------+
+// | Helpers |
+// +---------+
+
+func generate(prevGen string, rulesX, rulesY []string) (string) {
+  nextGen := ""
+  for len(prevGen) > 0 {
+    extract := ""
+    for i, _ := range rulesX {
+      from := string(rulesX[i])
+      to := string(rulesY[i])
+      extract = string(prevGen[0:len(from)])
+      if extract == from {
+        nextGen += to
+        break
+      }
+      extract = ""
+    }
+    prevGen = string(prevGen[len(extract):])
+    if len(extract) == 0 {
+      nextGen += string(prevGen[:1])
+      prevGen = string(prevGen[1:])
+    }
   }
-  return
+  return nextGen
 }
 
 func longestString(gens []string) (longest int) {
@@ -26,91 +51,85 @@ func longestString(gens []string) (longest int) {
   return
 }
 
-// TODO : https://www.sohamkamani.com/blog/2017/10/18/parsing-json-in-golang/
+// +--------------+
+// | Plant struct |
+// +--------------+
+
 type Plant struct {
   Species, Axiom string
+  Discriminator int
   GrowthConfigX, GrowthConfigY []string
   RenderConfigX, RenderConfigY []string
   PhaseConfigX,  PhaseConfigY  []string
   Gens []string
 }
 
-func (p *Plant) LoadGens(path string) {
-  f, err := ioutil.ReadFile(path)
+func (p Plant) GetSavePath() (string) {
+  possibleConfigDirs := []string{"%APPDATA%", "${XDG_CONFIG_HOME}", "${HOME}/Library/Application"}
+  for _, dir := range possibleConfigDirs {
+    gimmeDir := string(dir)
+    if _, err := os.Stat(dir); err == nil {
+      return gimmeDir + "/" + p.Species + "/" + string(p.Discriminator) + "/"
+    }
+  }
+  return "no save path could be generated"
+}
+
+func (p *Plant) LoadGens() {
+  gimmePath := p.GetSavePath()
+  f, err := ioutil.ReadFile(gimmePath)
   if err != nil {
     p.Gens = []string{p.Axiom}
   } else {
-    p.Gens = strings.Split(string(f), " ")
+    p.Gens = strings.Split(string(f), "\n")
   }
 }
 
+func (p Plant) SaveGens() {
+  gimmePath := p.GetSavePath()
+  rawData := strings.Join(p.Gens, "\n")
+  message := []byte(rawData)
+  err := ioutil.WriteFile(gimmePath, message, 0644)
+  if err != nil {
+    os.Exit(0)
+	}
+}
+
 func (p Plant) Render() (string) {
-  result := ""
-  prevGenLen, prevOff := 0, 0
+  result := []string{}
   for i := len(p.Gens) - 1; i >= 0; i-- {
-    gimmeRow := ""
-    chars := strings.Split(string(p.Gens[i]), "")
-    for j := range chars {
-      cur := string(chars[j])
-      rule_loop: for k := range p.RenderConfigX {
-        from := string(p.RenderConfigX[k])
-        to := string(p.RenderConfigY[k])
-        if cur == from {
-          gimmeRow += to
-          break rule_loop
-        }
-      }
-    }
-    curLen := len(gimmeRow)
-    genOffset := getOffset(prevGenLen, prevOff, curLen)
-    prevGenLen = curLen
-    prevOff = genOffset
-    result += strings.Repeat(" ", genOffset) + gimmeRow + "\n"
+    gimmeRow := generate(p.Gens[i], p.RenderConfigX, p.RenderConfigY)
+    result = append(result, gimmeRow)
   }
-  longestGen = longestString(res)
-  //for i := len()
-  return result
+  halfLongestGen := longestString(result) / 2
+  render := ""
+  for i := 0; i < len(result); i++ {
+    curGen := string(result[i])
+    curLen := len(curGen)
+    offset := int(halfLongestGen - (curLen / 2))
+    render += strings.Repeat(" ", offset) + curGen + "\n"
+  }
+  return render
 }
 
 func (p *Plant) Phase(layers int) {
   from := len(p.Gens) - 1
   to := from - layers
   for i := from; i > to; i-- {
-    accumulator := ""
-    for j := range p.Gens[i] {
-      cur := string(p.Gens[i][j])
-      rule_loop: for k := range p.PhaseConfigX {
-        from := string(p.PhaseConfigX[k])
-        to := string(p.PhaseConfigY[k])
-        if cur == from {
-          accumulator += to
-          break rule_loop
-        } else {
-          accumulator += cur
-        }
-      }
-    }
-    p.Gens[i] = accumulator
+    p.Gens[i] = generate(string(p.Gens[i]), p.PhaseConfigX, p.PhaseConfigY)
   }
 }
 
 func (p *Plant) Grow(epochs int) {
-  prev := p.Gens[len(p.Gens) - 1]
-  next := ""
-  for i := range prev {
-    cur := string(prev[i])
-    rule_loop: for j := range p.GrowthConfigX {
-      from := string(p.GrowthConfigX[j])
-      to := string(p.GrowthConfigY[j])
-      if cur == from {
-        cur = to
-        break rule_loop
-      }
-    }
-    next += cur
-  }
+  prev := string(p.Gens[len(p.Gens) - 1])
+  next := generate(prev, p.GrowthConfigX, p.GrowthConfigY)
   p.Gens = append(p.Gens, next)
   if epochs > 1 {
     p.Grow(epochs - 1)
   }
+}
+
+func (p *Plant) Chop(layers int) {
+  gimmeChoppingIndex := len(p.Gens) - layers - 1
+  p.Gens = p.Gens[:gimmeChoppingIndex]
 }
