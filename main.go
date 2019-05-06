@@ -30,6 +30,10 @@ func restorePlant(plants []string, index int) (Plant) {
   }
 }
 
+// +--------------+
+// | Main Process |
+// +--------------+
+
 func main() {
 
   flower := plant.Plant{
