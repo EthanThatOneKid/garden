@@ -10,3 +10,6 @@ Simulated gardening written in Go
 * Garden
   * Select plant from menu
   * View, Take to Farmer's Market, or Water
+* Plant Dex
+  * Dex completion
+  * Blurbs for each plant
