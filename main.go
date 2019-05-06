@@ -7,7 +7,7 @@ package main
 import (
   "fmt"
   "strings"
-  // ui "github.com/manifoldco/promptui"
+  ui "github.com/manifoldco/promptui"
   plant "./plant"
   static "./static"
 )
@@ -49,11 +49,22 @@ func main() {
   fmt.Println(flower.Gens)
   fmt.Println(flower.Render())
   
-  // prompt := ui.Prompt{
-	// 	Label:    "Number",
-	// 	// Validate: validate,
-	// }
-  // res, _ := prompt.Run()
-  // fmt.Println(res)
+  for true {
+	  
+    fmt.PrintLn("(1) Visit Garden")
+    fmt.PrintLn("(2) Check Plant Dex")
+    fmt.Println("(3) View Gardener License")
+    prompt := ui.Prompt{"> "}
+    res, _ := prompt.Run()
+    switch res {
+    case "1":
+      visitGarden()
+    case "2":
+      checkPlantDex()
+    case "3":
+      viewGardenerLicense()
+    default:
+      fmt.Println("\n")
+    }
 
-}
+ }
