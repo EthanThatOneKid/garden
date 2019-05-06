@@ -1,26 +1,36 @@
 package main
 
+// +--------------+
+// | Dependencies |
+// +--------------+
+
 import (
   "fmt"
+  "strings"
   // ui "github.com/manifoldco/promptui"
   plant "./plant"
+  static "./static"
 )
 
-func main() {
+// +---------+
+// | Helpers |
+// +---------+
 
-  // flower := plant.Plant{
-  //   Species: "Pine",
-  //   Axiom: "a",
-  //   GrowthConfigX: []string{"a", "b", "d", "e"},
-  //   GrowthConfigY: []string{"bcdedcb", "cc", "ee", ""},
-  //   RenderConfigX: []string{"a", "b", "c", "d", "e"},
-  //   RenderConfigY: []string{"||", "|", "|", "|", "|"},
-  //   PhaseConfigX: []string{},
-  //   PhaseConfigY: []string{},
-  //   Gens: []string{},
-  // }
-  // flower.LoadGens("")
-  // flower.Grow(4)
+func restorePlant(plants []string, index int) (Plant) {
+  i := i * 7
+  plants := static.plants
+  return plant.Plant{
+    Species: string(plants[i + 0]),
+    Entry: string(plants[i + 1]),
+    Axiom: string(plants[i + 2]),
+    GrowthConfigX: strings.Split(string(plants[i + 3]), ","),
+    GrowthConfigY: strings.Split(string(plants[i + 4]), ","),
+    RenderConfigX: strings.Split(string(plants[i + 5]), ","),
+    RenderConfigX: strings.Split(string(plants[i + 6]), ","),
+  }
+}
+
+func main() {
 
   flower := plant.Plant{
     Species: "Algae",
@@ -29,23 +39,12 @@ func main() {
     GrowthConfigY: []string{"AB", "A"},
     RenderConfigX: []string{"A", "B"},
     RenderConfigY: []string{"\\", "/"},
-    Gens: []string{},
   }
   flower.LoadGens()
   flower.Grow(7)
-
-  // flower := plant.Plant{
-  //   Name: "flower",
-  //   Gens: []string{"a"},
-  //   GrowthConfigX: []string{"a", "b", "c"},
-  //   GrowthConfigY: []string{"bac", "sb", "cs"},
-  // }
-  // flower.Grow(5)
-
   fmt.Println(flower.Gens)
   fmt.Println(flower.Render())
-  // fmt.Println(flower.Print([]string{"a", "b", "c", "s"}, []string{"|", "\\", "/", " "}))
-
+  
   // prompt := ui.Prompt{
 	// 	Label:    "Number",
 	// 	// Validate: validate,
