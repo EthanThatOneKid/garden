@@ -29,8 +29,6 @@ func main() {
     GrowthConfigY: []string{"AB", "A"},
     RenderConfigX: []string{"A", "B"},
     RenderConfigY: []string{"\\", "/"},
-    PhaseConfigX: []string{},
-    PhaseConfigY: []string{},
     Gens: []string{},
   }
   flower.LoadGens()

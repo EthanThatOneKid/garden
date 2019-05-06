@@ -60,7 +60,7 @@ type Plant struct {
   Discriminator int
   GrowthConfigX, GrowthConfigY []string
   RenderConfigX, RenderConfigY []string
-  PhaseConfigX,  PhaseConfigY  []string
+  // PhaseConfigX,  PhaseConfigY  []string
   Gens []string
 }
 
@@ -112,13 +112,13 @@ func (p Plant) Render() (string) {
   return render
 }
 
-func (p *Plant) Phase(layers int) {
-  from := len(p.Gens) - 1
-  to := from - layers
-  for i := from; i > to; i-- {
-    p.Gens[i] = generate(string(p.Gens[i]), p.PhaseConfigX, p.PhaseConfigY)
-  }
-}
+// func (p *Plant) Phase(layers int) {
+//   from := len(p.Gens) - 1
+//   to := from - layers
+//   for i := from; i > to; i-- {
+//     p.Gens[i] = generate(string(p.Gens[i]), p.PhaseConfigX, p.PhaseConfigY)
+//   }
+// }
 
 func (p *Plant) Grow(epochs int) {
   prev := string(p.Gens[len(p.Gens) - 1])
