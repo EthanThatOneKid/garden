@@ -5,46 +5,38 @@ package main
 // +--------------+
 
 import (
+  "os"
   "fmt"
   "strings"
   ui "github.com/manifoldco/promptui"
-  . "./plant"
-  static "./static"
+  . "./static" // Plants ([]string)
+  . "./plant" // Plant (struct)
 )
 
 // +---------+
 // | Helpers |
 // +---------+
 
-func restorePlant(plants []string, index int) (Plant) {
+func restorePlant(index int) (Plant) {
   i := index * 7
-  fmt.Println(static.Plants)
-  //plants := static.Plants
   return Plant{
-    Species: string(plants[i + 0]),
-    Entry: string(plants[i + 1]),
-    Axiom: string(plants[i + 2]),
-    GrowthConfigX: strings.Split(string(plants[i + 3]), ","),
-    GrowthConfigY: strings.Split(string(plants[i + 4]), ","),
-    RenderConfigX: strings.Split(string(plants[i + 5]), ","),
-    RenderConfigY: strings.Split(string(plants[i + 6]), ","),
+    Species: string(Plants[i + 0]),
+    Entry: string(Plants[i + 1]),
+    Axiom: string(Plants[i + 2]),
+    GrowthConfigX: strings.Split(string(Plants[i + 3]), ","),
+    GrowthConfigY: strings.Split(string(Plants[i + 4]), ","),
+    RenderConfigX: strings.Split(string(Plants[i + 5]), ","),
+    RenderConfigY: strings.Split(string(Plants[i + 6]), ","),
   }
 }
 
 func visitGarden() {
   fmt.Println("Visit Garden")
-  // flower := plant.Plant{
-  //   Species: "Algae",
-  //   Axiom: "A",
-  //   GrowthConfigX: []string{"A", "B"},
-  //   GrowthConfigY: []string{"AB", "A"},
-  //   RenderConfigX: []string{"A", "B"},
-  //   RenderConfigY: []string{"\\", "/"},
-  // }
-  // flower.LoadGens()
-  // flower.Grow(7)
-  // fmt.Println(flower.Gens)
-  // fmt.Println(flower.Render())
+  // gimme := restorePlant(0)
+  // gimme.LoadGens()
+  // gimme.Grow(7)
+  // gimme.Println(flower.Gens)
+  // gimme.Println(flower.Render())
 }
 
 func checkPlantDex() {
@@ -61,24 +53,26 @@ func viewGardenerLicense() {
 
 func main() {
 
-  fmt.Println(static.Plants)
+  fmt.Println(Plants)
 
   for true {
 
-    fmt.Println("(1) Visit Garden")
-    fmt.Println("(2) Check Plant Dex")
-    fmt.Println("(3) View Gardener License")
-    prompt := ui.Prompt{"> "}
-    res, _ := prompt.Run()
-    switch res {
-      case "1":
-        visitGarden()
-      case "2":
-        checkPlantDex()
-      case "3":
-        viewGardenerLicense()
-      default:
-        fmt.Println("\n")
+    prompt := ui.Select{
+  		Label: "Garden Main Menu",
+  		Items: []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"},
+    }
+    i, _, _ := prompt.Run()
+    switch i {
+    case 0:
+      visitGarden()
+    case 1:
+      checkPlantDex()
+    case 2:
+      viewGardenerLicense()
+    case 3:
+      os.Exit(0)
+    default:
+      fmt.Println("")
     }
 
   }
