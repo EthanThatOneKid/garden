@@ -1,7 +1,6 @@
 package static
 
-var plants = []string{
-
+var Plants = []string{
   "Algae",
   "A simple, nonflowering, and typically aquatic plant of a large group that includes the seaweeds and many single-celled forms. Algae contain chlorophyll but lack true stems, roots, leaves, and vascular tissue.",
   "a",
@@ -24,6 +23,6 @@ var plants = []string{
   "a,b,d,e",
   "bcdedcb,cc,ee,",
   "a,b,c,d,e",
-  "||,|,|,|,|"
+  "||,|,|,|,|",
 
 }

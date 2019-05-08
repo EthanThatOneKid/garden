@@ -55,7 +55,7 @@ func longestString(gens []string) (longest int) {
 // +--------------+
 
 type Plant struct {
-  Species, Axiom string
+  Species, Axiom, Entry string
   Discriminator int
   GrowthConfigX, GrowthConfigY []string
   RenderConfigX, RenderConfigY []string
