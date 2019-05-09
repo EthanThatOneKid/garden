@@ -7,8 +7,10 @@ package main
 import (
   "os"
   "fmt"
+  "sync"
   "strings"
   ui "github.com/manifoldco/promptui"
+  // ui "gopkg.in/AlecAivazis/survey.v1"
   . "./static" // Plants ([]string)
   . "./plant" // Plant (struct)
 )
@@ -30,21 +32,19 @@ func restorePlant(index int) (Plant) {
   }
 }
 
-func visitGarden() {
-  fmt.Println("Visit Garden")
-  // gimme := restorePlant(0)
-  // gimme.LoadGens()
-  // gimme.Grow(7)
-  // gimme.Println(flower.Gens)
-  // gimme.Println(flower.Render())
+func visitGarden(wg *sync.WaitGroup) {
+  fmt.Println("?Visit Garden")
+  wg.Done()
 }
 
-func checkPlantDex() {
-  fmt.Println("Check plant dex")
+func checkPlantDex(wg *sync.WaitGroup) {
+  fmt.Println("?Check plant dex")
+  wg.Done()
 }
 
-func viewGardenerLicense() {
-  fmt.Println("viewGardenerLicense")
+func viewGardenerLicense(wg *sync.WaitGroup) {
+  fmt.Println("?viewGardenerLicense")
+  wg.Done()
 }
 
 // +--------------+
@@ -53,27 +53,38 @@ func viewGardenerLicense() {
 
 func main() {
 
-  fmt.Println(Plants)
-
   for true {
 
-    prompt := ui.Select{
-  		Label: "Garden Main Menu",
-  		Items: []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"},
-    }
-    i, _, _ := prompt.Run()
-    switch i {
-    case 0:
-      visitGarden()
-    case 1:
-      checkPlantDex()
-    case 2:
-      viewGardenerLicense()
-    case 3:
-      os.Exit(0)
-    default:
-      fmt.Println("")
-    }
+    var wg sync.WaitGroup
+    var selection int
+
+    wg.Add(1)
+    go func() {
+      prompt := ui.Select{
+        Label: "Garden Main Menu",
+        Items: []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"},
+      }
+      selection, _, _ = prompt.Run()
+      wg.Done()
+    }()
+    wg.Wait()
+
+    wg.Add(1)
+    go func() {
+      switch selection {
+      case 0:
+        go visitGarden(&wg)
+      case 1:
+        go checkPlantDex(&wg)
+      case 2:
+        go viewGardenerLicense(&wg)
+      case 3:
+        os.Exit(0)
+      default:
+        wg.Done()
+      }
+    }()
+    wg.Wait()
 
   }
 
