@@ -32,6 +32,19 @@ func restorePlant(index int) (Plant) {
   }
 }
 
+func handleMainMenuInput(selection int, wg *sync.WaitGroup) {
+  switch selection {
+  case 0:
+    go visitGarden(&wg)
+  case 1:
+    go checkPlantDex(&wg)
+  case 2:
+    go viewGardenerLicense(&wg)
+  case 3:
+    os.Exit(0)
+  }
+}
+
 func visitGarden(wg *sync.WaitGroup) {
   fmt.Println("?Visit Garden")
   wg.Done()
@@ -53,39 +66,21 @@ func viewGardenerLicense(wg *sync.WaitGroup) {
 
 func main() {
 
-  for true {
+  var wg sync.WaitGroup
+  var selection int
 
-    var wg sync.WaitGroup
-    var selection int
-
-    wg.Add(1)
-    go func() {
-      prompt := ui.Select{
-        Label: "Garden Main Menu",
-        Items: []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"},
-      }
-      selection, _, _ = prompt.Run()
-      wg.Done()
-    }()
-    wg.Wait()
-
-    wg.Add(1)
-    go func() {
-      switch selection {
-      case 0:
-        go visitGarden(&wg)
-      case 1:
-        go checkPlantDex(&wg)
-      case 2:
-        go viewGardenerLicense(&wg)
-      case 3:
-        os.Exit(0)
-      default:
-        wg.Done()
-      }
-    }()
-    wg.Wait()
-
+  prompt := ui.Select{
+    Label: "Garden Main Menu",
+    Items: []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"},
   }
+  selection, _, _ = prompt.Run()
+
+  wg.Add(1)
+  go handleMainMenuInput(selection, &wg)
+  wg.Wait()
+
+  fmt.Println("again")
+
+  //main()
 
 }
