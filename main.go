@@ -76,6 +76,7 @@ func viewGardenerLicense() {
 
 func main() {
 
+  // print ascii splash screen
   reader := bufio.NewReader(os.Stdin)
   mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"}
 
@@ -84,10 +85,13 @@ func main() {
     mainMenuOptionsRender := "? [" + strings.Join(mainMenuOptions, "], [") + "]"
     fmt.Println(mainMenuOptionsRender)
     fmt.Printf("> ")
+
     byteName, _, _ := reader.ReadLine()
     userInput := strings.ToUpper(string(byteName))
+
     selection := interpretSelection(mainMenuOptions, userInput)
     handleMainMenuInput(selection)
+
     fmt.Println("\n")
 
   }
