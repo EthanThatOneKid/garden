@@ -7,9 +7,10 @@ package main
 import (
   "os"
   "fmt"
-  "sync"
+  //"sync"
+  "bufio"
   "strings"
-  ui "github.com/manifoldco/promptui"
+  //ui "github.com/manifoldco/promptui"
   // ui "gopkg.in/AlecAivazis/survey.v1"
   . "./static" // Plants ([]string)
   . "./plant" // Plant (struct)
@@ -32,32 +33,41 @@ func restorePlant(index int) (Plant) {
   }
 }
 
-func handleMainMenuInput(selection int, wg *sync.WaitGroup) {
+func interpretSelection(options []string, input string) int {
+  for i, option := range options {
+    result := strings.Index(strings.ToUpper(option), input)
+    if result > -1 {
+      return i
+    }
+  }
+  return -1
+}
+
+func handleMainMenuInput(selection int) {
   switch selection {
   case 0:
-    go visitGarden(&wg)
+    visitGarden()
   case 1:
-    go checkPlantDex(&wg)
+    checkPlantDex()
   case 2:
-    go viewGardenerLicense(&wg)
+    viewGardenerLicense()
   case 3:
     os.Exit(0)
+  default:
+    fmt.Println("Try Again...")
   }
 }
 
-func visitGarden(wg *sync.WaitGroup) {
+func visitGarden() {
   fmt.Println("?Visit Garden")
-  wg.Done()
 }
 
-func checkPlantDex(wg *sync.WaitGroup) {
+func checkPlantDex() {
   fmt.Println("?Check plant dex")
-  wg.Done()
 }
 
-func viewGardenerLicense(wg *sync.WaitGroup) {
+func viewGardenerLicense() {
   fmt.Println("?viewGardenerLicense")
-  wg.Done()
 }
 
 // +--------------+
@@ -66,21 +76,20 @@ func viewGardenerLicense(wg *sync.WaitGroup) {
 
 func main() {
 
-  var wg sync.WaitGroup
-  var selection int
+  reader := bufio.NewReader(os.Stdin)
+  mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"}
 
-  prompt := ui.Select{
-    Label: "Garden Main Menu",
-    Items: []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"},
+  for true {
+
+    mainMenuOptionsRender := "? [" + strings.Join(mainMenuOptions, "], [") + "]"
+    fmt.Println(mainMenuOptionsRender)
+    fmt.Printf("> ")
+    byteName, _, _ := reader.ReadLine()
+    userInput := strings.ToUpper(string(byteName))
+    selection := interpretSelection(mainMenuOptions, userInput)
+    handleMainMenuInput(selection)
+    fmt.Println("\n")
+
   }
-  selection, _, _ = prompt.Run()
-
-  wg.Add(1)
-  go handleMainMenuInput(selection, &wg)
-  wg.Wait()
-
-  fmt.Println("again")
-
-  //main()
 
 }
