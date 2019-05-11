@@ -50,13 +50,21 @@ func longestString(gens []string) (longest int) {
   return
 }
 
+func rndString(n int) (string) {
+  letterBytes := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  b := make([]byte, n)
+  for i := range b {
+    b[i] = letterBytes[rand.Int63() % int64(len(letterBytes))]
+  }
+  return string(b)
+}
+
 // +--------------+
 // | Plant struct |
 // +--------------+
 
 type Plant struct {
-  Species, Axiom, Entry string
-  Discriminator int
+  Species, Axiom, Entry, Discriminator string
   GrowthConfigX, GrowthConfigY []string
   RenderConfigX, RenderConfigY []string
   // PhaseConfigX,  PhaseConfigY  []string
@@ -68,7 +76,7 @@ func (p Plant) GetSavePath() (string) {
   for _, dir := range possibleConfigDirs {
     gimmeDir := string(dir)
     if _, err := os.Stat(dir); err == nil {
-      return gimmeDir + "/" + p.Species + "/" + string(p.Discriminator) + "/"
+      return gimmeDir + "/garden/plants/" + p.Species + "/" + string(p.Discriminator) + "/"
     }
   }
   return "no save path could be generated"
@@ -79,6 +87,7 @@ func (p *Plant) LoadGens() {
   f, err := ioutil.ReadFile(gimmePath)
   if err != nil {
     p.Gens = []string{p.Axiom}
+    p.Discriminator = rndString(5)
   } else {
     p.Gens = strings.Split(string(f), "\n")
   }

@@ -7,13 +7,11 @@ package main
 import (
   "os"
   "fmt"
-  //"sync"
   "bufio"
   "strings"
-  //ui "github.com/manifoldco/promptui"
-  // ui "gopkg.in/AlecAivazis/survey.v1"
   . "./static" // Plants ([]string)
   . "./plant" // Plant (struct)
+  . "./user" // User (struct)
 )
 
 // +---------+
@@ -59,6 +57,8 @@ func handleMainMenuInput(selection int) {
 }
 
 func visitGarden() {
+  // get user data
+  //
   fmt.Println("?Visit Garden")
 }
 
