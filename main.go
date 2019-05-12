@@ -9,7 +9,7 @@ import (
   "fmt"
   "bufio"
   "strings"
-  . "./static" // Plants ([]string)
+  "./static" // GetOsSaveDir, Plants ([]string)
   . "./plant" // Plant (struct)
   . "./user" // User (struct)
 )
@@ -21,13 +21,13 @@ import (
 func restorePlant(index int) (Plant) {
   i := index * 7
   return Plant{
-    Species: string(Plants[i + 0]),
-    Entry: string(Plants[i + 1]),
-    Axiom: string(Plants[i + 2]),
-    GrowthConfigX: strings.Split(string(Plants[i + 3]), ","),
-    GrowthConfigY: strings.Split(string(Plants[i + 4]), ","),
-    RenderConfigX: strings.Split(string(Plants[i + 5]), ","),
-    RenderConfigY: strings.Split(string(Plants[i + 6]), ","),
+    Species: string(static.Plants[i + 0]),
+    Entry: string(static.Plants[i + 1]),
+    Axiom: string(static.Plants[i + 2]),
+    GrowthConfigX: strings.Split(string(static.Plants[i + 3]), ","),
+    GrowthConfigY: strings.Split(string(static.Plants[i + 4]), ","),
+    RenderConfigX: strings.Split(string(static.Plants[i + 5]), ","),
+    RenderConfigY: strings.Split(string(static.Plants[i + 6]), ","),
   }
 }
 
@@ -57,9 +57,9 @@ func handleMainMenuInput(selection int) {
 }
 
 func visitGarden() {
-  // get user data
-  //
-  fmt.Println("?Visit Garden")
+  u := User{}
+  u.Load()
+  fmt.Println(u.Plants)
 }
 
 func checkPlantDex() {
@@ -79,10 +79,11 @@ func main() {
   // print ascii splash screen
   reader := bufio.NewReader(os.Stdin)
   mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"}
+  mainMenuOptionsRender := "Menu: [" + strings.Join(mainMenuOptions, "], [") + "]"
+
 
   for true {
 
-    mainMenuOptionsRender := "? [" + strings.Join(mainMenuOptions, "], [") + "]"
     fmt.Println(mainMenuOptionsRender)
     fmt.Printf("> ")
 

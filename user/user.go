@@ -5,9 +5,11 @@ package user
 // +--------------+
 
 import (
-  "os"
+  //"os"
+  "fmt"
   "strings"
   "io/ioutil"
+  "../static"
 )
 
 // +---------+
@@ -19,31 +21,25 @@ import (
 // +-------------+
 
 type User struct {
-  SavePath string
   Plants [][]string
 }
 
-func (u User) GetSaveDir (string) {
-  possibleConfigDirs := []string{"%APPDATA%", "${XDG_CONFIG_HOME}", "${HOME}/Library/Application"}
-  for _, dir := range possibleConfigDirs {
-    gimmeDir := string(dir)
-    if _, err := os.Stat(dir); err == nil {
-      return gimmeDir + "/garden/user/"
-    }
-  }
-  return "no save path could be generated"
+func (u User) GetSaveDir() (string) {
+  return static.GetOsSaveDir("/GARDEN/user/")
 }
 
 func (u *User) Load() {
-  gimmePath := p.GetSaveDir() + "plants.sav"
+  gimmePath := u.GetSaveDir() + "\\plants.sav"
   f, err := ioutil.ReadFile(gimmePath)
   if err != nil {
     u.Plants = [][]string{[]string{"No Plants Found"}}
   } else {
     gimmePlants := strings.Split(string(f), "\n")
-    for i, gimmePlant := range gimmePlants {
-      species, discriminator := strings.Split(string(gimmePlant), "  ")
-      u.Plants[i] = []string{species, discriminator}
+    for _, gimmePlant := range gimmePlants {
+      gimmePlantData := strings.Split(string(gimmePlant), "  ")
+      species := string(gimmePlantData[0])
+      discriminator := string(gimmePlantData[1])
+      u.Plants = append(u.Plants, []string{species, discriminator})
     }
   }
 }
@@ -56,11 +52,16 @@ func (u *User) Update(species, discriminator string) {
 
 func (u User) Save() {
   data := []string{}
-  for _, (species, discriminator) := range u.Plants {
+  for _, plant := range u.Plants {
+    species := string(plant[0])
+    discriminator := string(plant[1])
     data = append(data, species + "  " + discriminator)
   }
   serializedData := strings.Join(data, "\n")
   message := []byte(serializedData)
-  savePath := u.GetSaveDir() + "plants.sav"
-  err := ioutil.WriteFile("testdata/hello", message, 0644)
+  savePath := u.GetSaveDir() + "/plants.sav"
+  err := ioutil.WriteFile(savePath, message, 0644)
+  if err != nil {
+    fmt.Println(err)
+  }
 }

@@ -6,10 +6,11 @@ package plant
 
 import (
   // "fmt"
-  // "math"
   "os"
   "strings"
   "io/ioutil"
+  "math/rand"
+  "../static"
 )
 
 // +---------+
@@ -71,19 +72,13 @@ type Plant struct {
   Gens []string
 }
 
-func (p Plant) GetSavePath() (string) {
-  possibleConfigDirs := []string{"%APPDATA%", "${XDG_CONFIG_HOME}", "${HOME}/Library/Application"}
-  for _, dir := range possibleConfigDirs {
-    gimmeDir := string(dir)
-    if _, err := os.Stat(dir); err == nil {
-      return gimmeDir + "/garden/plants/" + p.Species + "/" + string(p.Discriminator) + "/"
-    }
-  }
-  return "no save path could be generated"
+func (p Plant) GetSaveDir() (string) {
+  additionalDirs := "/garden/plants/" + p.Species + "/" + string(p.Discriminator) + "/"
+  return static.GetOsSaveDir(additionalDirs)
 }
 
 func (p *Plant) LoadGens() {
-  gimmePath := p.GetSavePath()
+  gimmePath := p.GetSaveDir() + "gens.sav"
   f, err := ioutil.ReadFile(gimmePath)
   if err != nil {
     p.Gens = []string{p.Axiom}
@@ -94,7 +89,7 @@ func (p *Plant) LoadGens() {
 }
 
 func (p Plant) SaveGens() {
-  gimmePath := p.GetSavePath()
+  gimmePath := p.GetSaveDir() + "gens.sav"
   rawData := strings.Join(p.Gens, "\n")
   message := []byte(rawData)
   err := ioutil.WriteFile(gimmePath, message, 0644)

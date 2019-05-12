@@ -1,5 +1,47 @@
 package static
 
+// +--------------+
+// | Dependencies |
+// +--------------+
+
+import (
+  "os"
+  "fmt"
+  "runtime"
+  "path/filepath"
+)
+
+// +---------+
+// | Helpers |
+// +---------+
+
+func GetOsSaveDir(additionalDirs string) (string) {
+  var result string
+  switch runtime.GOOS {
+  case "windows":
+    result = os.Getenv("APPDATA")
+  case "darwin":
+    result = os.Getenv("XDG_CONFIG_HOME")
+  case "linux":
+    result = os.Getenv("HOME") + "/Library/Application/"
+  default:
+    result = ""
+  }
+  result = filepath.Join(result, additionalDirs)
+  if _, err := os.Stat(result); os.IsNotExist(err) {
+    err := os.MkdirAll(result, os.ModeDir)
+    if err != nil {
+      fmt.Println(err)
+    }
+  }
+  return result
+}
+
+
+// +-----------+
+// | Constants |
+// +-----------+
+
 var Plants = []string{
   "Algae",
   "A simple, nonflowering, and typically aquatic plant of a large group that includes the seaweeds and many single-celled forms. Algae contain chlorophyll but lack true stems, roots, leaves, and vascular tissue.",
