@@ -72,13 +72,17 @@ type Plant struct {
   Gens []string
 }
 
+func (p *Plant) SetDiscriminator(disc string) {
+  p.Discriminator = disc
+}
+
 func (p Plant) GetSaveDir() (string) {
   additionalDirs := "/garden/plants/" + p.Species + "/" + string(p.Discriminator) + "/"
   return static.GetOsSaveDir(additionalDirs)
 }
 
 func (p *Plant) LoadGens() {
-  gimmePath := p.GetSaveDir() + "gens.sav"
+  gimmePath := p.GetSaveDir() + "/gens.sav"
   f, err := ioutil.ReadFile(gimmePath)
   if err != nil {
     p.Gens = []string{p.Axiom}
@@ -89,7 +93,7 @@ func (p *Plant) LoadGens() {
 }
 
 func (p Plant) SaveGens() {
-  gimmePath := p.GetSaveDir() + "gens.sav"
+  gimmePath := p.GetSaveDir() + "/gens.sav"
   rawData := strings.Join(p.Gens, "\n")
   message := []byte(rawData)
   err := ioutil.WriteFile(gimmePath, message, 0644)

@@ -9,6 +9,7 @@ import (
   "fmt"
   "bufio"
   "strings"
+  "strconv"
   "./static" // GetOsSaveDir, Plants ([]string)
   . "./plant" // Plant (struct)
   . "./user" // User (struct)
@@ -50,9 +51,9 @@ func restorePlant(species string) (Plant) {
 func getPlantSummary(data []string) (string) {
   species := string(data[0])
   p := restorePlant(species)
-  p.Discriminator = string(data[1])
+  p.SetDiscriminator(string(data[1]))
   p.LoadGens()
-  return string(p.GetGrowthLevel())
+  return strconv.Itoa(p.GetGrowthLevel())
 }
 
 func handleMainMenuInput(selection int) {
@@ -66,7 +67,7 @@ func handleMainMenuInput(selection int) {
   case 3:
     os.Exit(0)
   default:
-    fmt.Println("Try Again...")
+    fmt.Println("Try Again..?")
   }
 }
 
@@ -77,12 +78,31 @@ func visitGarden() {
   for i, data := range u.Plants {
     species := string(data[0])
     discriminator := string(data[1])
+    optionIndex := strconv.Itoa(i + 1)
     growthLevel := getPlantSummary(data)
-    option := "[" + string(i + 1) + "] " + species + "  (" + discriminator + "), lv: " + growthLevel
+    option := ("[" + optionIndex + "] " + species + " (" + discriminator + "), lv: " + growthLevel)
     plantSelection = append(plantSelection, option)
   }
-  plantSelectionRender := strings.Join(plantSelection, "\n")
+  plantSelectionRender := "Choose a Plant:\n" + strings.Join(plantSelection, "\n")
   fmt.Println(plantSelectionRender)
+  fmt.Printf("> ")
+  byteName, _, _ := reader.ReadLine()
+  inputValue := string(byteName)
+  for i, data := range u.Plants {
+    optionIndex := strconv.Itoa(i + 1)
+    if (optionIndex == inputValue) {
+      gimmeSpecies := string(data[0])
+      gimmePlant := restorePlant(gimmeSpecies)
+      gimmePlant.SetDiscriminator(string(data[1]))
+      gimmePlant.LoadGens()
+      viewPlant(gimmePlant)
+    }
+  }
+}
+
+func viewPlant(p Plant) {
+  p.Grow(3)
+  fmt.Println(p.Render())
 }
 
 func checkPlantDex() {
@@ -100,11 +120,9 @@ func viewGardenerLicense() {
 func main() {
 
   fmt.Println(static.Splash)
-  
   reader = bufio.NewReader(os.Stdin)
   mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"}
   mainMenuOptionsRender := "Menu: [" + strings.Join(mainMenuOptions, "], [") + "]"
-
 
   for true {
 
@@ -113,6 +131,7 @@ func main() {
 
     byteName, _, _ := reader.ReadLine()
     userInput := strings.ToUpper(string(byteName))
+    fmt.Println()
 
     selection := interpretSelection(mainMenuOptions, userInput)
     handleMainMenuInput(selection)

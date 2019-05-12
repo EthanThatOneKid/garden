@@ -52,7 +52,8 @@ var Splash string = `
  \  '-''   | |  _( )_  ||  | \ ''   /|  (_.\.' /  \  '-'    /|  (_,_)\  |
   \        / \ (_ o _) /|  |  \    / |       .'    \       / |  |    |  |
    ''-...-'   '.(_,_).' ''-'   ''-'  '-----''       ''-..-'  '--'    '--'
-   (by EthanThatOneKid, devoted to GDDmad)`
+                (by EthanThatOneKid, devoted to GDDmad)
+`
 
 var Plants = map[string][]string{
 
