@@ -10,7 +10,7 @@ import (
   "strings"
   "io/ioutil"
   "math/rand"
-  "../static"
+  "github.com/EthanThatOneKid/garden/static"
 )
 
 // +---------+

@@ -10,9 +10,9 @@ import (
   "bufio"
   "strings"
   "strconv"
-  "./static" // GetOsSaveDir, Plants ([]string)
-  . "./plant" // Plant (struct)
-  . "./user" // User (struct)
+  "github.com/EthanThatOneKid/garden/static" // GetOsSaveDir, Plants ([]string)
+  . "github.com/EthanThatOneKid/garden/plant" // Plant (struct)
+  . "github.com/EthanThatOneKid/garden/user" // User (struct)
 )
 
 // +---------+

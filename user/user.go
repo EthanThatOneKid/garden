@@ -9,7 +9,7 @@ import (
   "fmt"
   "strings"
   "io/ioutil"
-  "../static"
+  "github.com/EthanThatOneKid/garden/static"
 )
 
 // +---------+
