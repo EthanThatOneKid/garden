@@ -15,21 +15,14 @@ import (
 )
 
 // +---------+
-// | Helpers |
+// | Globals |
 // +---------+
 
-func restorePlant(index int) (Plant) {
-  i := index * 7
-  return Plant{
-    Species: string(static.Plants[i + 0]),
-    Entry: string(static.Plants[i + 1]),
-    Axiom: string(static.Plants[i + 2]),
-    GrowthConfigX: strings.Split(string(static.Plants[i + 3]), ","),
-    GrowthConfigY: strings.Split(string(static.Plants[i + 4]), ","),
-    RenderConfigX: strings.Split(string(static.Plants[i + 5]), ","),
-    RenderConfigY: strings.Split(string(static.Plants[i + 6]), ","),
-  }
-}
+var reader *bufio.Reader
+
+// +---------+
+// | Helpers |
+// +---------+
 
 func interpretSelection(options []string, input string) int {
   for i, option := range options {
@@ -39,6 +32,27 @@ func interpretSelection(options []string, input string) int {
     }
   }
   return -1
+}
+
+func restorePlant(species string) (Plant) {
+  p := static.Plants[species]
+  return Plant{
+    Species: string(p[0]),
+    Entry:   string(p[1]),
+    Axiom:   string(p[2]),
+    GrowthConfigX: strings.Split(string(p[3]), ","),
+    GrowthConfigY: strings.Split(string(p[4]), ","),
+    RenderConfigX: strings.Split(string(p[5]), ","),
+    RenderConfigY: strings.Split(string(p[6]), ","),
+  }
+}
+
+func getPlantSummary(data []string) (string) {
+  species := string(data[0])
+  p := restorePlant(species)
+  p.Discriminator = string(data[1])
+  p.LoadGens()
+  return string(p.GetGrowthLevel())
 }
 
 func handleMainMenuInput(selection int) {
@@ -59,7 +73,16 @@ func handleMainMenuInput(selection int) {
 func visitGarden() {
   u := User{}
   u.Load()
-  fmt.Println(u.Plants)
+  var plantSelection []string
+  for i, data := range u.Plants {
+    species := string(data[0])
+    discriminator := string(data[1])
+    growthLevel := getPlantSummary(data)
+    option := "[" + string(i + 1) + "] " + species + "  (" + discriminator + "), lv: " + growthLevel
+    plantSelection = append(plantSelection, option)
+  }
+  plantSelectionRender := strings.Join(plantSelection, "\n")
+  fmt.Println(plantSelectionRender)
 }
 
 func checkPlantDex() {
@@ -76,8 +99,9 @@ func viewGardenerLicense() {
 
 func main() {
 
-  // print ascii splash screen
-  reader := bufio.NewReader(os.Stdin)
+  fmt.Println(static.Splash)
+  
+  reader = bufio.NewReader(os.Stdin)
   mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"}
   mainMenuOptionsRender := "Menu: [" + strings.Join(mainMenuOptions, "], [") + "]"
 

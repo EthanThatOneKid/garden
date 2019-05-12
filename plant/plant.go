@@ -98,6 +98,10 @@ func (p Plant) SaveGens() {
 	}
 }
 
+func (p Plant) GetGrowthLevel() (int) {
+  return len(p.Gens)
+}
+
 func (p Plant) Render() (string) {
   result := []string{}
   for i := len(p.Gens) - 1; i >= 0; i-- {
