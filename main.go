@@ -96,6 +96,7 @@ func visitGarden() {
       gimmePlant.SetDiscriminator(string(data[1]))
       gimmePlant.LoadGens()
       viewPlant(gimmePlant)
+      // readline for selection: [water/grow, dispose, trim]
     }
   }
 }
