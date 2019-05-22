@@ -97,6 +97,7 @@ func visitGarden() {
       gimmePlant.LoadGens()
       viewPlant(gimmePlant)
       // readline for selection: [water/grow, dispose, trim]
+      // lol i need 1 commit per day so here it is😂
     }
   }
 }
