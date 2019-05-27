@@ -22,6 +22,7 @@ import (
 
 type User struct {
   Plants [][]string
+  PlantsSeen []string
 }
 
 func (u User) GetSaveDir() (string) {
@@ -42,6 +43,7 @@ func (u *User) Load() {
       u.Plants = append(u.Plants, []string{species, discriminator})
     }
   }
+  // load plants seen
 }
 
 func (u User) Has(species string) bool {
@@ -61,6 +63,15 @@ func (u *User) RemovePlant(i int) {
 func (u *User) Update(species, discriminator string) {
   gimmeNewPlant := []string{species, discriminator}
   u.Plants = append(u.Plants, gimmeNewPlant)
+  neverSeenSpecies := true
+  for _, seenSpecies := range u.PlantsSeen {
+    if species == seenSpecies {
+      neverSeenSpecies = false
+    }
+  }
+  if neverSeenSpecies {
+    u.PlantsSeen = append(u.PlantsSeen, species)
+  }
   u.Save()
 }
 
@@ -75,7 +86,5 @@ func (u User) Save() {
   message := []byte(serializedData)
   savePath := u.GetSaveDir() + "/plants.sav"
   err := ioutil.WriteFile(savePath, message, 0644)
-  if err != nil {
-    fmt.Println(err)
-  }
+  // save plants seen
 }
