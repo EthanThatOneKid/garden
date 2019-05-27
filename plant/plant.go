@@ -144,5 +144,7 @@ func (p *Plant) Grow(epochs int) {
 
 func (p *Plant) Trim(layers int) {
   gimmeChoppingIndex := len(p.Gens) - layers
-  p.Gens = p.Gens[:gimmeChoppingIndex]
+  if gimmeChoppingIndex > 0 {
+    p.Gens = p.Gens[:gimmeChoppingIndex]
+  }
 }
