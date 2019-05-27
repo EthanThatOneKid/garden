@@ -130,6 +130,24 @@ func viewPlant(p Plant) {
 
 func checkPlantDex() {
   fmt.Println("?Check plant dex")
+  u := User{}
+  u.Load()
+  owned, i := 0, 1
+  for species, meta := range static.Plants {
+    if u.Has(species) {
+      desc := string(meta[1])
+      gimmePlant := restorePlant(species)
+      gimmePlant.LoadGens()
+      gimmePlant.Grow(5)
+      fmt.Println("[" + i + "] Species: " + species)
+      fmt.Println("Description: " + desc)
+      fmt.Println(gimmePlant.Render())
+      fmt.Println(strings.Repeat("^v", 20))
+      owned++
+    }
+    i++
+  }
+  fmt.Println("Completion: " + strconv.Itoa(100 * owned / i))
 }
 
 func viewGardenerLicense() {

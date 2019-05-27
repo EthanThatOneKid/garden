@@ -44,6 +44,16 @@ func (u *User) Load() {
   }
 }
 
+func (u User) Has(species string) bool {
+  for _, data := range u.Plants {
+    candidate := string(data[0])
+    if species == candidate {
+      return true
+    }
+  }
+  return false
+}
+
 func (u *User) Update(species, discriminator string) {
   gimmeNewPlant := []string{species, discriminator}
   u.Plants = append(u.Plants, gimmeNewPlant)
