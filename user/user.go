@@ -54,6 +54,10 @@ func (u User) Has(species string) bool {
   return false
 }
 
+func (u *User) RemovePlant(i int) {
+  u.Plants = append(u.Plants[:i], u.Plants[i + 1:]...)
+}
+
 func (u *User) Update(species, discriminator string) {
   gimmeNewPlant := []string{species, discriminator}
   u.Plants = append(u.Plants, gimmeNewPlant)
