@@ -77,7 +77,7 @@ func (p *Plant) SetDiscriminator(disc string) {
 }
 
 func (p Plant) GetSaveDir() (string) {
-  additionalDirs := "/garden/plants/" + p.Species + "/" + string(p.Discriminator) + "/"
+  additionalDirs := "/GARDEN/plants/" + p.Species + "/" + string(p.Discriminator) + "/"
   return static.GetOsSaveDir(additionalDirs)
 }
 
@@ -86,7 +86,9 @@ func (p *Plant) LoadGens() {
   f, err := ioutil.ReadFile(gimmePath)
   if err != nil {
     p.Gens = []string{p.Axiom}
-    p.Discriminator = rndString(5)
+    if len(p.Discriminator) == 0 {
+      p.Discriminator = rndString(5)
+    }
   } else {
     p.Gens = strings.Split(string(f), "\n")
   }
@@ -140,7 +142,7 @@ func (p *Plant) Grow(epochs int) {
   }
 }
 
-func (p *Plant) Chop(layers int) {
-  gimmeChoppingIndex := len(p.Gens) - layers - 1
+func (p *Plant) Trim(layers int) {
+  gimmeChoppingIndex := len(p.Gens) - layers
   p.Gens = p.Gens[:gimmeChoppingIndex]
 }

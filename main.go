@@ -91,21 +91,40 @@ func visitGarden() {
   for i, data := range u.Plants {
     optionIndex := strconv.Itoa(i + 1)
     if (optionIndex == inputValue) {
+      viewingPlant := true
       gimmeSpecies := string(data[0])
       gimmePlant := restorePlant(gimmeSpecies)
       gimmePlant.SetDiscriminator(string(data[1]))
       gimmePlant.LoadGens()
-      viewPlant(gimmePlant)
-      // readline for selection: [water/grow, dispose, trim]
-      // lol i need 1 commit per day so here it is😂
-      // lol i need 1 commit per day so here it is😂 (uno mas)
-      // lol i need 1 commit per day so here it is😂 (dos mas)
+      menuOptions := []string{"Water", "Trim", "Dispose", "Exit"}
+      menuOptionsRender := "Plant Menu: [" + strings.Join(menuOptions, "], [") + "]"
+      for viewingPlant {
+        viewPlant(gimmePlant)
+        fmt.Println(menuOptionsRender)
+        fmt.Printf("> ")
+        byteName, _, _ := reader.ReadLine()
+        userInput := strings.ToUpper(string(byteName))
+        selection := interpretSelection(menuOptions, userInput)
+        switch selection {
+        case 0:
+          gimmePlant.Grow(1)
+        case 1:
+          gimmePlant.Trim(1)
+        case 2:
+          // u.RemovePlant(i)
+          fmt.Println("$Removing Plant")
+        case 3:
+          gimmePlant.SaveGens()
+          viewingPlant = false
+        default:
+          fmt.Println("Try Again..?")
+        }
+      }
     }
   }
 }
 
 func viewPlant(p Plant) {
-  p.Grow(3)
   fmt.Println(p.Render())
 }
 
@@ -126,7 +145,7 @@ func main() {
   fmt.Println(static.Splash)
   reader = bufio.NewReader(os.Stdin)
   mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"}
-  mainMenuOptionsRender := "Menu: [" + strings.Join(mainMenuOptions, "], [") + "]"
+  mainMenuOptionsRender := "Main Menu: [" + strings.Join(mainMenuOptions, "], [") + "]"
 
   for true {
 
@@ -140,7 +159,7 @@ func main() {
     selection := interpretSelection(mainMenuOptions, userInput)
     handleMainMenuInput(selection)
 
-    fmt.Println("\n")
+    fmt.Println()
 
   }
 
