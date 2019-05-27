@@ -35,6 +35,15 @@ func interpretSelection(options []string, input string) int {
   return -1
 }
 
+func breedNewPlant() {
+  u := User{}
+  u.Load()
+  gimmeSpecies := "Algae" // rnd species from static.Plants
+  gimmePlant := restorePlant(gimmeSpecies)
+  gimmePlant.LoadGens()
+  u.Update(gimmePlant.Species, gimmePlant.Discriminator)
+}
+
 func restorePlant(species string) (Plant) {
   p := static.Plants[species]
   return Plant{
@@ -63,8 +72,6 @@ func handleMainMenuInput(selection int) {
   case 1:
     checkPlantDex()
   case 2:
-    viewGardenerLicense()
-  case 3:
     os.Exit(0)
   default:
     fmt.Println("Try Again..?")
@@ -99,7 +106,7 @@ func visitGarden() {
       menuOptions := []string{"Water", "Trim", "Dispose", "Exit"}
       menuOptionsRender := "Plant Menu: [" + strings.Join(menuOptions, "], [") + "]"
       for viewingPlant {
-        viewPlant(gimmePlant)
+        fmt.Println(gimmePlant.Render())
         fmt.Println(menuOptionsRender)
         fmt.Printf("> ")
         byteName, _, _ := reader.ReadLine()
@@ -110,6 +117,7 @@ func visitGarden() {
           gimmePlant.Grow(1)
         case 1:
           gimmePlant.Trim(1)
+          // rnd chance & growth level > 4 get new seed and print to screen
         case 2:
           // u.RemovePlant(i)
           fmt.Println("$Removing Plant")
@@ -124,34 +132,29 @@ func visitGarden() {
   }
 }
 
-func viewPlant(p Plant) {
-  fmt.Println(p.Render())
-}
-
 func checkPlantDex() {
-  fmt.Println("?Check plant dex")
   u := User{}
   u.Load()
   owned, i := 0, 1
   for species, meta := range static.Plants {
     if u.Has(species) {
+      fmt.Println(strings.Repeat("^v", 20))
       desc := string(meta[1])
       gimmePlant := restorePlant(species)
       gimmePlant.LoadGens()
       gimmePlant.Grow(5)
-      fmt.Println("[" + i + "] Species: " + species)
+      fmt.Println()
+      fmt.Println("[" + strconv.Itoa(i) + "] Species: " + species)
       fmt.Println("Description: " + desc)
+      fmt.Println()
       fmt.Println(gimmePlant.Render())
-      fmt.Println(strings.Repeat("^v", 20))
       owned++
     }
     i++
   }
-  fmt.Println("Completion: " + strconv.Itoa(100 * owned / i))
-}
-
-func viewGardenerLicense() {
-  fmt.Println("?viewGardenerLicense")
+  completion := strconv.Itoa(int(100 * owned / i))
+  fmt.Println(strings.Repeat("^v", 20))
+  fmt.Println("Completion: " + completion + "%")
 }
 
 // +--------------+
@@ -162,7 +165,7 @@ func main() {
 
   fmt.Println(static.Splash)
   reader = bufio.NewReader(os.Stdin)
-  mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "View Gardener License", "Exit"}
+  mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "Exit"}
   mainMenuOptionsRender := "Main Menu: [" + strings.Join(mainMenuOptions, "], [") + "]"
 
   for true {
