@@ -41,6 +41,7 @@ func breedNewPlant() {
   gimmeSpecies := "Algae" // rnd species from static.Plants
   gimmePlant := restorePlant(gimmeSpecies)
   gimmePlant.LoadGens()
+  gimmePlant.SaveGens()
   u.Update(gimmePlant.Species, gimmePlant.Discriminator)
 }
 
