@@ -45,14 +45,15 @@ func (u *User) Load() {
     }
   }
   // Loading u.PlantsSeen
-  gimmePath = u.GetOsSaveDir() + "\\seen.sav"
-  f, err := ioutil.ReadFile(gimmePath)
+  gimmePath = u.GetSaveDir() + "\\seen.sav"
+  f, err = ioutil.ReadFile(gimmePath)
   if err == nil {
     gimmePlantsSeenList := strings.Split(string(f), "\n")
-    for _, _species : range gimmePlantsSeenList {
+    for _, _species := range gimmePlantsSeenList {
       u.PlantsSeen[_species] = true
     }
-  } if err != nil || len(u.PlantsSeen) == 0 {
+  }
+  if err != nil || len(u.PlantsSeen) == 0 {
     for _, data := range u.Plants {
       u.PlantsSeen[string(data[0])] = true
     }
@@ -60,7 +61,7 @@ func (u *User) Load() {
 }
 
 func (u User) Has(species string) bool {
-  for _, _species := range u.PlantsSeen {
+  for _species, _ := range u.PlantsSeen {
     candidate := string(_species)
     if species == candidate {
       return true
@@ -98,7 +99,7 @@ func (u User) Save() {
     gimmePlantsSeenList = append(gimmePlantsSeenList, species)
   }
   message = []byte(strings.Join(gimmePlantsSeenList, "\n"))
-  savePath := u.GetSaveDir)_ + "/seen.sav"
+  savePath = u.GetSaveDir() + "/seen.sav"
   ioutil.WriteFile(savePath, message, 0644)
 
 }
