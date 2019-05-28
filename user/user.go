@@ -45,18 +45,20 @@ func (u *User) Load() {
     }
   }
   // Loading u.PlantsSeen
+  u.PlantsSeen = make(map[string]bool)
   gimmePath = u.GetSaveDir() + "\\seen.sav"
   f, err = ioutil.ReadFile(gimmePath)
   if err == nil {
     gimmePlantsSeenList := strings.Split(string(f), "\n")
     for _, _species := range gimmePlantsSeenList {
-      u.PlantsSeen[_species] = true
+      u.PlantsSeen[string(_species)] = true
     }
   }
   if err != nil || len(u.PlantsSeen) == 0 {
     for _, data := range u.Plants {
       u.PlantsSeen[string(data[0])] = true
     }
+    u.Save()
   }
 }
 
