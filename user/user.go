@@ -44,6 +44,9 @@ func (u *User) Load() {
       u.Plants = append(u.Plants, []string{species, discriminator})
     }
   }
+  if len(u.Plants) == 0 {
+    u.Plants = append(u.Plants, []string{"Algae", "TTRL"})
+  }
   // Loading u.PlantsSeen
   u.PlantsSeen = make(map[string]bool)
   gimmePath = u.GetSaveDir() + "\\seen.sav"
