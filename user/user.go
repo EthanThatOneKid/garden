@@ -22,7 +22,7 @@ import (
 
 type User struct {
   Plants [][]string
-  PlantsSeen []string
+  PlantsSeen map[string]bool
 }
 
 func (u User) GetSaveDir() (string) {
@@ -47,16 +47,21 @@ func (u *User) Load() {
   // Loading u.PlantsSeen
   gimmePath = u.GetOsSaveDir() + "\\seen.sav"
   f, err := ioutil.ReadFile(gimmePath)
-  if err != nil {
-    u.PlantsSeen = []string{}
-  } else {
-    u.PlantsSeen = strings.Split(string(f), "\n")
+  if err == nil {
+    gimmePlantsSeenList := strings.Split(string(f), "\n")
+    for _, _species : range gimmePlantsSeenList {
+      u.PlantsSeen[_species] = true
+    }
+  } if err != nil || len(u.PlantsSeen) == 0 {
+    for _, data := range u.Plants {
+      u.PlantsSeen[string(data[0])] = true
+    }
   }
 }
 
 func (u User) Has(species string) bool {
-  for _, data := range u.Plants {
-    candidate := string(data[0])
+  for _, _species := range u.PlantsSeen {
+    candidate := string(_species)
     if species == candidate {
       return true
     }
@@ -71,15 +76,7 @@ func (u *User) RemovePlant(i int) {
 func (u *User) Update(species, discriminator string) {
   gimmeNewPlant := []string{species, discriminator}
   u.Plants = append(u.Plants, gimmeNewPlant)
-  neverSeenSpecies := true
-  for _, seenSpecies := range u.PlantsSeen {
-    if species == seenSpecies {
-      neverSeenSpecies = false
-    }
-  }
-  if neverSeenSpecies {
-    u.PlantsSeen = append(u.PlantsSeen, species)
-  }
+  u.PlantsSeen[species] = true
   u.Save()
 }
 
@@ -96,7 +93,11 @@ func (u User) Save() {
   savePath := u.GetSaveDir() + "/plants.sav"
   ioutil.WriteFile(savePath, message, 0644)
   // Saving User.PlantsSeen
-  message = []byte(strings.Join(u.PlantsSeen, "\n"))
+  var gimmePlantsSeenList []string
+  for species, _ := range u.PlantsSeen {
+    gimmePlantsSeenList = append(gimmePlantsSeenList, species)
+  }
+  message = []byte(strings.Join(gimmePlantsSeenList, "\n"))
   savePath := u.GetSaveDir)_ + "/seen.sav"
   ioutil.WriteFile(savePath, message, 0644)
 
