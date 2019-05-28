@@ -6,7 +6,7 @@ package user
 
 import (
   //"os"
-  "fmt"
+  //"fmt"
   "strings"
   "io/ioutil"
   "github.com/EthanThatOneKid/garden/static"
@@ -86,7 +86,7 @@ func (u User) Save() {
   serializedData := strings.Join(data, "\n")
   message := []byte(serializedData)
   savePath := u.GetSaveDir() + "/plants.sav"
-  err := ioutil.WriteFile(savePath, message, 0644)
+  ioutil.WriteFile(savePath, message, 0644)
   // saving User.PlantsSeen
-  
+
 }
