@@ -76,6 +76,7 @@ func (u *User) Update(species, discriminator string) {
 }
 
 func (u User) Save() {
+  // saving User.Plants
   data := []string{}
   for _, plant := range u.Plants {
     species := string(plant[0])
@@ -86,5 +87,6 @@ func (u User) Save() {
   message := []byte(serializedData)
   savePath := u.GetSaveDir() + "/plants.sav"
   err := ioutil.WriteFile(savePath, message, 0644)
-  // save plants seen
+  // saving User.PlantsSeen
+  
 }
