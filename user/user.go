@@ -30,10 +30,11 @@ func (u User) GetSaveDir() (string) {
 }
 
 func (u *User) Load() {
+  // Loading u.Plants
   gimmePath := u.GetSaveDir() + "\\plants.sav"
   f, err := ioutil.ReadFile(gimmePath)
   if err != nil {
-    u.Plants = [][]string{[]string{"No Plants Found"}}
+    u.Plants = [][]string{}
   } else {
     gimmePlants := strings.Split(string(f), "\n")
     for _, gimmePlant := range gimmePlants {
@@ -43,7 +44,14 @@ func (u *User) Load() {
       u.Plants = append(u.Plants, []string{species, discriminator})
     }
   }
-  // load plants seen
+  // Loading u.PlantsSeen
+  gimmePath = u.GetOsSaveDir() + "\\seen.sav"
+  f, err := ioutil.ReadFile(gimmePath)
+  if err != nil {
+    u.PlantsSeen = []string{}
+  } else {
+    u.PlantsSeen = strings.Split(string(f), "\n")
+  }
 }
 
 func (u User) Has(species string) bool {
@@ -76,7 +84,7 @@ func (u *User) Update(species, discriminator string) {
 }
 
 func (u User) Save() {
-  // saving User.Plants
+  // Saving User.Plants
   data := []string{}
   for _, plant := range u.Plants {
     species := string(plant[0])
@@ -87,6 +95,9 @@ func (u User) Save() {
   message := []byte(serializedData)
   savePath := u.GetSaveDir() + "/plants.sav"
   ioutil.WriteFile(savePath, message, 0644)
-  // saving User.PlantsSeen
+  // Saving User.PlantsSeen
+  message = []byte(strings.Join(u.PlantsSeen, "\n"))
+  savePath := u.GetSaveDir)_ + "/seen.sav"
+  ioutil.WriteFile(savePath, message, 0644)
 
 }
