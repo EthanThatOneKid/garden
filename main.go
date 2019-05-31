@@ -23,6 +23,7 @@ import (
 
 var reader *bufio.Reader
 var seedDropChance float64 = 0.2
+var version string = "1.0.0 beta"
 
 // +---------+
 // | Helpers |
@@ -217,6 +218,7 @@ func goOnAWalk() {
 func main() {
 
   fmt.Println(static.Splash)
+  fmt.Println("version " + version)
   reader = bufio.NewReader(os.Stdin)
   mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "Settings", "Exit"}
   mainMenuOptionsRender := "Main Menu: [" + strings.Join(mainMenuOptions, "], [") + "]"
