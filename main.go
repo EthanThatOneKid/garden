@@ -29,6 +29,9 @@ var seedDropChance float64 = 0.2
 // +---------+
 
 func interpretSelection(options []string, input string) int {
+  if len(input) == 0 {
+    return -1
+  }
   for i, option := range options {
     result := strings.Index(strings.ToUpper(option), input)
     if result > -1 {
@@ -36,6 +39,10 @@ func interpretSelection(options []string, input string) int {
     }
   }
   return -1
+}
+
+func wot() {
+  fmt.Println("Try Again..?")
 }
 
 func breedNewPlant() {
@@ -81,9 +88,11 @@ func handleMainMenuInput(selection int) {
   case 1:
     checkPlantDex()
   case 2:
+    settings()
+  case 3:
     os.Exit(0)
   default:
-    fmt.Println("Try Again..?")
+    wot()
   }
 }
 
@@ -126,7 +135,7 @@ func visitGarden() {
           gimmePlant.Grow(1)
         case 1:
           rand.Seed(time.Now().UnixNano())
-          if rand.Float64() > seedDropChance && gimmePlant.GetGrowthLevel() > 3 {
+          if rand.Float64() < seedDropChance && gimmePlant.GetGrowthLevel() > 3 {
             breedNewPlant()
             fmt.Println("A seed was dropped!")
           }
@@ -138,7 +147,7 @@ func visitGarden() {
           gimmePlant.SaveGens()
           viewingPlant = false
         default:
-          fmt.Println("Try Again..?")
+          wot()
         }
       }
     }
@@ -170,6 +179,29 @@ func checkPlantDex() {
   fmt.Println("Completion: " + completion + "%")
 }
 
+func settings() {
+  menuOptions := []string{"Exit", "Delete Save Data"}
+  menuOptionsRender := "Settings Menu: [" + strings.Join(menuOptions, "], [") + "]"
+  settingsLoop: for true {
+    fmt.Println(menuOptionsRender)
+    fmt.Printf("> ")
+    byteName, _, _ := reader.ReadLine()
+    userInput := strings.ToUpper(string(byteName))
+    selection := interpretSelection(menuOptions, userInput)
+    switch selection {
+    case 0:
+      break settingsLoop
+    case 1:
+      u := User{}
+      u.DeleteSaveData()
+      fmt.Println("Your save data has been reset. The program will now close.")
+      os.Exit(0)
+    default:
+      wot()
+    }
+  }
+}
+
 // +--------------+
 // | Main Process |
 // +--------------+
@@ -178,7 +210,7 @@ func main() {
 
   fmt.Println(static.Splash)
   reader = bufio.NewReader(os.Stdin)
-  mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "Exit"}
+  mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "Settings", "Exit"}
   mainMenuOptionsRender := "Main Menu: [" + strings.Join(mainMenuOptions, "], [") + "]"
 
   for true {

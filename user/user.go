@@ -5,7 +5,7 @@ package user
 // +--------------+
 
 import (
-  //"os"
+  "os"
   //"fmt"
   "strings"
   "io/ioutil"
@@ -29,6 +29,11 @@ func (u User) GetSaveDir() (string) {
   return static.GetOsSaveDir("/GARDEN/user/")
 }
 
+func (u User) DeleteSaveData() {
+  saveDir := static.GetOsSaveDir("/GARDEN/")
+  os.RemoveAll(saveDir)
+}
+
 func (u *User) Load() {
   // Loading u.Plants
   gimmePath := u.GetSaveDir() + "\\plants.sav"
@@ -45,7 +50,7 @@ func (u *User) Load() {
     }
   }
   if len(u.Plants) == 0 {
-    u.Plants = append(u.Plants, []string{"Algae", "TTRL"})
+    u.Plants = append(u.Plants, []string{"Algae", "TTRIL"})
   }
   // Loading u.PlantsSeen
   u.PlantsSeen = make(map[string]bool)
