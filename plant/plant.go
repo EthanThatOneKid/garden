@@ -51,13 +51,13 @@ func longestString(gens []string) (longest int) {
   return
 }
 
-func rndString(n int) (string) {
-  letterBytes := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  b := make([]byte, n)
-  for i := range b {
-    b[i] = letterBytes[rand.Int63() % int64(len(letterBytes))]
+func rndString(size int) (string) {
+  alpha := "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+  buf := make([]byte, size)
+  for i := 0; i < size; i++ {
+    buf[i] = alpha[rand.Intn(len(alpha))]
   }
-  return string(b)
+  return string(buf)
 }
 
 // +--------------+
