@@ -202,6 +202,14 @@ func settings() {
   }
 }
 
+func goOnAWalk() {
+  // play some music!!!
+  // https://github.com/faiface/beep/blob/master/examples/tutorial/1-hello-beep/b/main.go
+  // put raw wav stream in static
+  // randomly walk to different places; park, beach, pier, pond, road, sidewalk
+  // u.AddItem(itemName, amt): randomly pick up an item; mulch, water, something else perhaps
+}
+
 // +--------------+
 // | Main Process |
 // +--------------+
