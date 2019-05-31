@@ -165,7 +165,7 @@ func checkPlantDex() {
     }
     i++
   }
-  completion := strconv.Itoa(int(100 * owned / i))
+  completion := strconv.Itoa(int(100 * owned / (i - 1)))
   fmt.Println(strings.Repeat("^v", 20))
   fmt.Println("Completion: " + completion + "%")
 }
