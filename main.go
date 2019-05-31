@@ -10,6 +10,8 @@ import (
   "bufio"
   "strings"
   "strconv"
+  "math/rand"
+  "time"
   "github.com/EthanThatOneKid/garden/static" // GetOsSaveDir, Plants ([]string)
   . "github.com/EthanThatOneKid/garden/plant" // Plant (struct)
   . "github.com/EthanThatOneKid/garden/user" // User (struct)
@@ -20,6 +22,7 @@ import (
 // +---------+
 
 var reader *bufio.Reader
+var seedDropChance float64 = 0.2
 
 // +---------+
 // | Helpers |
@@ -38,7 +41,12 @@ func interpretSelection(options []string, input string) int {
 func breedNewPlant() {
   u := User{}
   u.Load()
-  gimmeSpecies := "Algae" // rnd species from static.Plants
+  var speciesCandidates []string
+  for k := range static.Plants {
+    speciesCandidates = append(speciesCandidates, k)
+  }
+  rand.Seed(time.Now().UnixNano())
+  gimmeSpecies := speciesCandidates[rand.Intn(len(speciesCandidates) - 1)]
   gimmePlant := restorePlant(gimmeSpecies)
   gimmePlant.LoadGens()
   gimmePlant.SaveGens()
@@ -96,7 +104,7 @@ func visitGarden() {
   fmt.Printf("> ")
   byteName, _, _ := reader.ReadLine()
   inputValue := string(byteName)
-  for i, data := range u.Plants {
+  viewingPlantLoop: for i, data := range u.Plants {
     optionIndex := strconv.Itoa(i + 1)
     if (optionIndex == inputValue) {
       viewingPlant := true
@@ -117,11 +125,15 @@ func visitGarden() {
         case 0:
           gimmePlant.Grow(1)
         case 1:
+          rand.Seed(time.Now().UnixNano())
+          if rand.Float64() > seedDropChance && gimmePlant.GetGrowthLevel() > 3 {
+            breedNewPlant()
+            fmt.Println("A seed was dropped!")
+          }
           gimmePlant.Trim(1)
-          // rnd chance & growth level > 4 get new seed and print to screen
         case 2:
-          // u.RemovePlant(i)
-          fmt.Println("$Removing Plant")
+          u.RemovePlant(i)
+          break viewingPlantLoop
         case 3:
           gimmePlant.SaveGens()
           viewingPlant = false
@@ -180,7 +192,6 @@ func main() {
 
     selection := interpretSelection(mainMenuOptions, userInput)
     handleMainMenuInput(selection)
-
     fmt.Println()
 
   }

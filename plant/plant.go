@@ -10,6 +10,7 @@ import (
   "strings"
   "io/ioutil"
   "math/rand"
+  "time"
   "github.com/EthanThatOneKid/garden/static"
 )
 
@@ -53,6 +54,7 @@ func longestString(gens []string) (longest int) {
 
 func rndString(size int) (string) {
   alpha := "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+  rand.Seed(time.Now().UnixNano())
   buf := make([]byte, size)
   for i := 0; i < size; i++ {
     buf[i] = alpha[rand.Intn(len(alpha))]

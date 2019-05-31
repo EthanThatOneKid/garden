@@ -77,6 +77,7 @@ func (u User) Has(species string) bool {
 
 func (u *User) RemovePlant(i int) {
   u.Plants = append(u.Plants[:i], u.Plants[i + 1:]...)
+  u.Save()
 }
 
 func (u *User) Update(species, discriminator string) {
