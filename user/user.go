@@ -16,7 +16,7 @@ import (
 // | Globals |
 // +---------+
 
-var starterPlantData []string = []string{"Bush", "TTRIL"}
+var starterPlantData []string = []string{"Vine", "TTRIL"}
 
 // +---------+
 // | Helpers |
@@ -89,7 +89,7 @@ func (u User) Has(species string) bool {
 func (u *User) RemovePlant(i int) {
   if len(u.Plants) > 0 {
     u.Plants = append(u.Plants[:i], u.Plants[i + 1:]...)
-    u.Save()  
+    u.Save()
   }
 }
 

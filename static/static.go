@@ -67,9 +67,9 @@ var Plants = map[string][]string{
       "\\,/",
     },
 
-    "Flowey": []string{
-      "Flowey",
-      "A test a test of a test yay",
+    "Rose": []string{
+      "Rose",
+      "A rose is a woody perennial flowering plant of the genus Rosa, in the family Rosaceae, or the flower it bears. There are over three hundred species and thousands of cultivars.",
       "a",
       "a,b,c",
       "bac,sb,cs",
@@ -79,7 +79,7 @@ var Plants = map[string][]string{
 
     "Pine": {
       "Pine",
-      "A pine tree",
+      "Pine trees are evergreen, coniferous resinous trees (or, rarely, shrubs) growing 3–80 m (10–260 ft) tall, with the majority of species reaching 15–45 m (50–150 ft) tall.",
       "a",
       "a,b,d,e",
       "bcdedcb,cc,ee,",
@@ -87,14 +87,48 @@ var Plants = map[string][]string{
       "||,|,|,|,|",
     },
 
-    "Bush": {
-      "Bush",
-      "",
-      "Y",
-      "X,Y",
-      "XFX,YFX",
-      "X,Y,F",
-      "/,\\,|",
+    "Vine": {
+      "Vine",
+      "A vine is any plant with a growth habit of trailing or climbing stems, lianas or runners.",
+      "a",
+      "a,b,c,d",
+      "b,c,d,a",
+      "a,b,c,d",
+      "<| | , |v| , | |>, | | ",
     },
+
+/*
+
+Bush #1
+axiom = Y
+X -> X[-FFF][+FFF]FX
+Y -> YFX[+Y][-Y]
+angle = 25.7
+
+Bush #2
+axiom = F
+F -> FF+[+F-F-F]-[-F+F+F]
+angle = 22.5
+
+Bush #3
+axiom = F
+F -> F[+FF][-FF]F[-F][+F]F
+angle = 35
+
+Bush #4
+axiom = VZFFF
+V -> [+++W][---W]YV
+W -> +X[-W]Z
+X -> -W[+X]Z
+Y -> YZ
+Z -> [-FFF][+FFF]F
+angle = 20
+
+Tree
+axiom = FX
+X -> >[-FX]+FX
+angle = 40
+
+*/
 
 }
