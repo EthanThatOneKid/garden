@@ -86,4 +86,15 @@ var Plants = map[string][]string{
       "a,b,c,d,e",
       "||,|,|,|,|",
     },
+
+    "Bush": {
+      "Bush",
+      "",
+      "Y",
+      "X,Y",
+      "XFX,YFX",
+      "X,Y,F",
+      "/,\\,|",
+    },
+
 }

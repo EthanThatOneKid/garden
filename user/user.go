@@ -13,6 +13,12 @@ import (
 )
 
 // +---------+
+// | Globals |
+// +---------+
+
+var starterPlantData []string = []string{"Bush", "TTRIL"}
+
+// +---------+
 // | Helpers |
 // +---------+
 
@@ -50,7 +56,7 @@ func (u *User) Load() {
     }
   }
   if len(u.Plants) == 0 {
-    u.Plants = append(u.Plants, []string{"Algae", "TTRIL"})
+    u.Plants = append(u.Plants, starterPlantData)
   }
   // Loading u.PlantsSeen
   u.PlantsSeen = make(map[string]bool)
@@ -81,8 +87,10 @@ func (u User) Has(species string) bool {
 }
 
 func (u *User) RemovePlant(i int) {
-  u.Plants = append(u.Plants[:i], u.Plants[i + 1:]...)
-  u.Save()
+  if len(u.Plants) > 0 {
+    u.Plants = append(u.Plants[:i], u.Plants[i + 1:]...)
+    u.Save()  
+  }
 }
 
 func (u *User) Update(species, discriminator string) {
