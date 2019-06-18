@@ -81,10 +81,10 @@ var Plants = map[string][]string{
       "Pine",
       "Pine trees are evergreen, coniferous resinous trees (or, rarely, shrubs) growing 3–80 m (10–260 ft) tall, with the majority of species reaching 15–45 m (50–150 ft) tall.",
       "a",
-      "a,b,d,e",
-      "bcdedcb,cc,ee,",
-      "a,b,c,d,e",
-      "||,|,|,|,|",
+      "a,b,c,d,e,f,g",
+      "b,c,d,e,f,g,g",
+      "a,b,c,d,e,f,g",
+      "|  |,/__________\\,/________\\,/______\\,/____\\,/__\\,/_\\",
     },
 
     "Vine": {
@@ -95,6 +95,16 @@ var Plants = map[string][]string{
       "b,c,d,a",
       "a,b,c,d",
       "<| | , |v| , | |>, | | ",
+    },
+
+    "Bamboo": {
+      "Bamboo",
+      "A vine is any plant with a growth habit of trailing or climbing stems, lianas or runners.",
+      "a",
+      "a",
+      "a",
+      "a",
+      "[]",
     },
 
 /*
