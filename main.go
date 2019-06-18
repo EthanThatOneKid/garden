@@ -22,7 +22,7 @@ import (
 // +---------+
 
 var reader *bufio.Reader
-var seedDropChance float64 = 0.2
+var seedDropChance float64 = 0.99
 var version string = "1.0.0 beta"
 
 // +---------+
@@ -109,7 +109,7 @@ func visitGarden() {
     option := ("[" + optionIndex + "] " + species + " (" + discriminator + "), lv: " + growthLevel)
     plantSelection = append(plantSelection, option)
   }
-  plantSelectionRender := "Choose a Plant:\n" + strings.Join(plantSelection, "\n")
+  plantSelectionRender := "[?] Choose a Plant:\n" + strings.Join(plantSelection, "\n")
   fmt.Println(plantSelectionRender)
   fmt.Printf("> ")
   byteName, _, _ := reader.ReadLine()
@@ -123,7 +123,7 @@ func visitGarden() {
       gimmePlant.SetDiscriminator(string(data[1]))
       gimmePlant.LoadGens()
       menuOptions := []string{"Water", "Trim", "Dispose", "Exit"}
-      menuOptionsRender := "Plant Menu: [" + strings.Join(menuOptions, "], [") + "]"
+      menuOptionsRender := "[?] Plant Menu: [" + strings.Join(menuOptions, "], [") + "]"
       for viewingPlant {
         fmt.Println(gimmePlant.Render())
         fmt.Println(menuOptionsRender)
@@ -138,7 +138,7 @@ func visitGarden() {
           rand.Seed(time.Now().UnixNano())
           if rand.Float64() < seedDropChance && gimmePlant.GetGrowthLevel() > 3 {
             breedNewPlant()
-            fmt.Println("A seed was dropped!")
+            fmt.Println("[!] A seed was dropped!")
           }
           gimmePlant.Trim(1)
         case 2:
@@ -182,7 +182,7 @@ func checkPlantDex() {
 
 func settings() {
   menuOptions := []string{"Exit", "Delete Save Data"}
-  menuOptionsRender := "Settings Menu: [" + strings.Join(menuOptions, "], [") + "]"
+  menuOptionsRender := "[?] Settings Menu: [" + strings.Join(menuOptions, "], [") + "]"
   settingsLoop: for true {
     fmt.Println(menuOptionsRender)
     fmt.Printf("> ")
@@ -195,7 +195,7 @@ func settings() {
     case 1:
       u := User{}
       u.DeleteSaveData()
-      fmt.Println("Your save data has been reset. The program will now close.")
+      fmt.Println("[!] Your save data has been reset. The program will now close.")
       os.Exit(0)
     default:
       wot()
@@ -221,7 +221,7 @@ func main() {
   fmt.Println("version " + version)
   reader = bufio.NewReader(os.Stdin)
   mainMenuOptions := []string{"Visit Garden", "Check Plant Dex", "Settings", "Exit"}
-  mainMenuOptionsRender := "Main Menu: [" + strings.Join(mainMenuOptions, "], [") + "]"
+  mainMenuOptionsRender := "[?] Main Menu: [" + strings.Join(mainMenuOptions, "], [") + "]"
 
   for true {
 

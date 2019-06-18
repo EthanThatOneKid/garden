@@ -82,9 +82,9 @@ var Plants = map[string][]string{
       "Pine trees are evergreen, coniferous resinous trees (or, rarely, shrubs) growing 3–80 m (10–260 ft) tall, with the majority of species reaching 15–45 m (50–150 ft) tall.",
       "a",
       "a,b,c,d,e,f,g",
-      "b,c,d,e,f,g,g",
-      "a,b,c,d,e,f,g",
-      "|  |,/__________\\,/________\\,/______\\,/____\\,/__\\,/_\\",
+      "b,c,d,e,f,g,h",
+      "a,b,c,d,e,f,g,h",
+      "|  |,/__________\\,/________\\,/______\\,/____\\,/__\\,/\\,",
     },
 
     "Vine": {
@@ -94,17 +94,27 @@ var Plants = map[string][]string{
       "a,b,c,d",
       "b,c,d,a",
       "a,b,c,d",
-      "<| | , |v| , | |>, | | ",
+      "<( (,  ) ),(v(,   ) )>",
     },
 
     "Bamboo": {
       "Bamboo",
-      "A vine is any plant with a growth habit of trailing or climbing stems, lianas or runners.",
+      "Bamboo has a specific tensile strength that rivals steel. In Philippine mythology, one of the more famous creation accounts tells of the first man and woman, Maganda, each emerged from one half of a split bamboo stem on an island formed after the battle between Sky and Ocean.",
       "a",
       "a",
       "a",
       "a",
       "[]",
+    },
+
+    "Succulent": {
+      "Succulent",
+      "Succulent plants, are plants that have some parts that are more than normally thickened and fleshy, usually to retain water in arid climates or soil conditions.",
+      "a",
+      "a,b",
+      "b,a",
+      "a,b",
+      "{( (} , {) )}",
     },
 
 /*
