@@ -121,10 +121,10 @@ var Plants = map[string][]string{
       "Cactus",
       "",
       "a",
-      "a,b,cc,dsssd,asssa",
-      "b,cc,dsssd,asssa,bsb",
-      "a,b,c,d,s",
-      "| |,\\ V /,\\*\\ /*/,|v|, ",
+      "a,b,c,sss",
+      "b,c,asssa,s",
+      "a,b,c,s",
+      "|*|,\\ V /,\\<\\ />/, ",
     },
 
     "Kelp": []string{
