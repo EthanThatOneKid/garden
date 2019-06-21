@@ -57,9 +57,9 @@ var Splash string = `
 
 var Plants = map[string][]string{
 
-    "Algae": []string{
-      "Algae",
-      "A simple, nonflowering, and typically aquatic plant of a large group that includes the seaweeds and many single-celled forms. Algae contain chlorophyll but lack true stems, roots, leaves, and vascular tissue.",
+    "Tumbleweed": []string{
+      "Tumbleweed",
+      "A tumbleweed is a structural part of the above-ground anatomy of a number of species of plants, a diaspore that, once it is mature and dry, detaches from its root or stem, and rolls due to the force of the wind.",
       "a",
       "a,b",
       "ab,a",
@@ -77,44 +77,64 @@ var Plants = map[string][]string{
       "|,\\,/, ",
     },
 
-    "Pine": {
+    "Pine": []string{
       "Pine",
       "Pine trees are evergreen, coniferous resinous trees (or, rarely, shrubs) growing 3–80 m (10–260 ft) tall, with the majority of species reaching 15–45 m (50–150 ft) tall.",
       "a",
+      "a,b,c,d,e,f",
+      "b,c,d,e,f,g",
       "a,b,c,d,e,f,g",
-      "b,c,d,e,f,g,h",
-      "a,b,c,d,e,f,g,h",
-      "|  |,/__________\\,/________\\,/______\\,/____\\,/__\\,/\\,",
+      "|  |,/________\\,/______\\,/____\\,/__\\,/\\,",
     },
 
-    "Vine": {
+    "Vine": []string{
       "Vine",
       "A vine is any plant with a growth habit of trailing or climbing stems, lianas or runners.",
       "a",
       "a,b,c,d",
       "b,c,d,a",
       "a,b,c,d",
-      "<( (,  ) ),(v(,   ) )>",
+      "<| | , |v| , | |>, | | ",
     },
 
-    "Bamboo": {
+    "Bamboo": []string{
       "Bamboo",
       "Bamboo has a specific tensile strength that rivals steel. In Philippine mythology, one of the more famous creation accounts tells of the first man and woman, Maganda, each emerged from one half of a split bamboo stem on an island formed after the battle between Sky and Ocean.",
       "a",
-      "a",
-      "a",
-      "a",
-      "[]",
+      "a,b",
+      "b,a",
+      "a,b",
+      "|__|,|`.|",
     },
 
-    "Succulent": {
+    "Succulent": []string{
       "Succulent",
-      "Succulent plants, are plants that have some parts that are more than normally thickened and fleshy, usually to retain water in arid climates or soil conditions.",
+      "Succulents are plants that have some parts that are more than normally thickened and fleshy, usually to retain water in arid climates or soil conditions.",
       "a",
       "a,b",
       "b,a",
       "a,b",
       "{( (} , {) )}",
+    },
+
+    "Cactus": []string{
+      "Cactus",
+      "",
+      "a",
+      "a,b,cc,dsssd,asssa",
+      "b,cc,dsssd,asssa,bsb",
+      "a,b,c,d,s",
+      "| |,\\ V /,\\*\\ /*/,|v|, ",
+    },
+
+    "Kelp": []string{
+      "Kelp",
+      "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
+      "a",
+      "a,b,c,d",
+      "b,c,d,a",
+      "a,b,c,d",
+      "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
     },
 
 /*
