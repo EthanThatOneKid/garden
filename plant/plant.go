@@ -25,10 +25,12 @@ func generate(prevGen string, rulesX, rulesY []string) (string) {
     for i, _ := range rulesX {
       from := string(rulesX[i])
       to := string(rulesY[i])
-      extract = string(prevGen[0:len(from)])
-      if extract == from {
-        nextGen += to
-        break
+      if len(from) <= len(prevGen) {
+        extract = string(prevGen[0:len(from)])
+        if extract == from {
+          nextGen += to
+          break
+        }
       }
       extract = ""
     }
