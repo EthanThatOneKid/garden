@@ -57,9 +57,9 @@ var Splash string = `
 
 var Plants = map[string][]string{
 
-    "Tumbleweed": []string{
-      "Tumbleweed",
-      "A tumbleweed is a structural part of the above-ground anatomy of a number of species of plants, a diaspore that, once it is mature and dry, detaches from its root or stem, and rolls due to the force of the wind.",
+    "Common Bush": []string{
+      "Common Bush",
+      "",
       "a",
       "a,b",
       "ab,a",
@@ -117,15 +117,6 @@ var Plants = map[string][]string{
       "{#( , )#}",
     },
 
-    // "Cactus #1": []string{
-    //   "Cactus #1",
-    //   "",
-    //   "a",
-    //   "a,b,c,sss",
-    //   "b,c,asssa,s",
-    //   "a,b,c,s",
-    //   "|.|,\\ V /,\\:\\ /:/, ",
-    // },
     "Cactus #1": []string{
       "Cactus #1",
       "",
@@ -156,38 +147,115 @@ var Plants = map[string][]string{
       "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
     },
 
-/*
+    "Bonzai": []string{
+      "Kelp",
+      "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
+      "a",
+      "a,b,c,d,e,f,j,h,i",
+      "b,c,d,e,f,g,h,i,e",
+      "a,b,c,d,e,f,g,h,i",
+      "          /)#(         ,         _.) ;/ *%;     ,     *%    \\/ #);-\"*%%* ,%^     ;*%%% )\\|.%%*%;_,  % *%%; ;%%%%*(    '   ,  ;%%%       \\(_.*%%%%. , ;%%%%%*%   _%%%%\"      ,       ;'%% \\-*%%%%%%%,    %%%;%%%%%%%         ",
+    },
 
-Bush #1
-axiom = Y
-X -> X[-FFF][+FFF]FX
-Y -> YFX[+Y][-Y]
-angle = 25.7
+    // "Palm Tree": []string{
+    //   "Kelp",
+    //   "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
+    //   "a",
+    //   "a,b,c,d",
+    //   "b,c,d,a",
+    //   "a,b,c,d",
+    //   "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
+    // },
+    //
+    // "X-mas Tree": []string{
+    //   "Kelp",
+    //   "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
+    //   "a",
+    //   "a,b,c,d",
+    //   "b,c,d,a",
+    //   "a,b,c,d",
+    //   "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
+    // },
+    //
+    // "Toadstool": []string{
+    //   "Kelp",
+    //   "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
+    //   "a",
+    //   "a,b,c,d",
+    //   "b,c,d,a",
+    //   "a,b,c,d",
+    //   "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
+    // },
+    //
+    // "Common Weed": []string{
+    //   "Kelp",
+    //   "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
+    //   "a",
+    //   "a,b,c,d",
+    //   "b,c,d,a",
+    //   "a,b,c,d",
+    //   "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
+    // },
 
-Bush #2
-axiom = F
-F -> FF+[+F-F-F]-[-F+F+F]
-angle = 22.5
 
-Bush #3
-axiom = F
-F -> F[+FF][-FF]F[-F][+F]F
-angle = 35
 
-Bush #4
-axiom = VZFFF
-V -> [+++W][---W]YV
-W -> +X[-W]Z
-X -> -W[+X]Z
-Y -> YZ
-Z -> [-FFF][+FFF]F
-angle = 20
 
-Tree
-axiom = FX
-X -> >[-FX]+FX
-angle = 40
+// Palm Tree
+//      __ _.--..--._ _
+//   .-' _/   _/\_   \_'-.
+//  |__ /   _/\__/\_   \__|
+//     |___/\_\__/  \___|
+//            \__/
+//            \__/
+//             \__/
+//              \__/
+//           ____\__/___
 
-*/
+// Christmas Tree
+  //     _\/_
+  //      /\
+  //      /\
+  //     /  \
+  //     /~~\o
+  //    /o   \
+  //   /~~*~~~\
+  //  o/    o \
+  //  /~~~~~~~~\~`
+  // /__*_______\
+  //      ||
+
+// Toadstool
+//   .-"""-.
+//  /* * * *\
+// :_.-:`:-._;
+//     (_)
+//  \|/(_)\|/
+
+// Weed
+ //       |
+ //     \|/|/
+ //   \|\\|//|/
+ //    \|\|/|/
+ //     \\|//
+ //      \|/
+ //      \|/
+ //       |
+ // _\|/__|_
+
+ // Cactus #3
+ //      *-*,
+ // ,*\/|`| \
+ // \'  | |'| *,
+ //  \ `| | |/ )
+ //   | |'| , /
+ //   |'| |, /
+ // __|_|_|_|__
+
+ // Giant Sequoia
+//                      |_    /
+//                      |-   |
+//                      |   =|
+//                      |    |
+// --------------------/ ,  . \
 
 }
