@@ -74,7 +74,7 @@ var Plants = map[string][]string{
       "a,b,c",
       "bac,sb,cs",
       "a,b,c,s",
-      "|,\\,/, ",
+      "|,(,), ",
     },
 
     "Pine": []string{
@@ -117,14 +117,33 @@ var Plants = map[string][]string{
       "{( (} , {) )}",
     },
 
-    "Cactus": []string{
-      "Cactus",
+    // "Cactus #1": []string{
+    //   "Cactus #1",
+    //   "",
+    //   "a",
+    //   "a,b,c,sss",
+    //   "b,c,asssa,s",
+    //   "a,b,c,s",
+    //   "|.|,\\ V /,\\:\\ /:/, ",
+    // },
+    "Cactus #1": []string{
+      "Cactus #1",
       "",
       "a",
-      "a,b,c,sss",
-      "b,c,asssa,s",
-      "a,b,c,s",
-      "|*|,\\ V /,\\<\\ />/, ",
+      "a,b,lsr",
+      "b,lsr,asssa",
+      "a,b,l,r,s",
+      "|.|,\\ V /,\\:\\,/:/, ",
+    },
+
+    "Cactus #2": []string{
+      "Cactus #2",
+      "",
+      "a",
+      "a,b,c,d,e,f",
+      "b,c,d,e,f,a",
+      "a,b,c,d,e,f",
+      "    | |    ,    |  ___),    | |_( ),(___  |  * ,( )_| |    , *  | |    ",
     },
 
     "Kelp": []string{
