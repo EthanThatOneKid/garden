@@ -67,9 +67,9 @@ var Plants = map[string][]string{
       "\\,/",
     },
 
-    "Rose": []string{
-      "Rose",
-      "A rose is a woody perennial flowering plant of the genus Rosa, in the family Rosaceae, or the flower it bears. There are over three hundred species and thousands of cultivars.",
+    "Tulip": []string{
+      "Tulip",
+      "",
       "a",
       "a,b,c",
       "bac,sb,cs",
@@ -114,7 +114,7 @@ var Plants = map[string][]string{
       "a,b",
       "b,a",
       "a,b",
-      "{( (} , {) )}",
+      "{#( , )#}",
     },
 
     // "Cactus #1": []string{

@@ -203,6 +203,16 @@ func settings() {
   }
 }
 
+func initializeDevEnvironment() {
+  u := User{}
+  u.Load()
+  for species := range static.Plants {
+    gimmePlant := restorePlant(species)
+    gimmePlant.LoadGens()
+    u.Update(gimmePlant.Species, gimmePlant.Discriminator)
+  }
+}
+
 func goOnAWalk() {
   // play some music!!!
   // https://github.com/faiface/beep/blob/master/examples/tutorial/1-hello-beep/b/main.go
@@ -216,6 +226,10 @@ func goOnAWalk() {
 // +--------------+
 
 func main() {
+
+  if len(os.Args) > 1 && os.Args[1] == "dev" {
+    initializeDevEnvironment()
+  }
 
   fmt.Println(static.Splash)
   fmt.Println("version " + version)
