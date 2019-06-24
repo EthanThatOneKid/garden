@@ -5,7 +5,6 @@ package plant
 // +--------------+
 
 import (
-  // "fmt"
   "os"
   "strings"
   "io/ioutil"
