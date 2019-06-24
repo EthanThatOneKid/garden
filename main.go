@@ -12,9 +12,9 @@ import (
   "strconv"
   "math/rand"
   "time"
-  "github.com/EthanThatOneKid/garden/static" // GetOsSaveDir, Plants ([]string)
-  . "github.com/EthanThatOneKid/garden/plant" // Plant (struct)
-  . "github.com/EthanThatOneKid/garden/user" // User (struct)
+  "github.com/EthanThatOneKid/garden/static"
+  . "github.com/EthanThatOneKid/garden/plant"
+  . "github.com/EthanThatOneKid/garden/user"
 )
 
 // +---------+
@@ -22,7 +22,7 @@ import (
 // +---------+
 
 var reader *bufio.Reader
-var seedDropChance float64 = 0.99
+var seedDropChance float64 = 0.1
 var version string = "1.0.0 beta"
 
 // +---------+
@@ -204,6 +204,7 @@ func settings() {
 }
 
 func initializeDevEnvironment() {
+  seedDropChance = 0.9999
   u := User{}
   u.Load()
   for species := range static.Plants {
@@ -214,9 +215,6 @@ func initializeDevEnvironment() {
 }
 
 func goOnAWalk() {
-  // play some music!!!
-  // https://github.com/faiface/beep/blob/master/examples/tutorial/1-hello-beep/b/main.go
-  // put raw wav stream in static
   // randomly walk to different places; park, beach, pier, pond, road, sidewalk
   // u.AddItem(itemName, amt): randomly pick up an item; mulch, water, something else perhaps
 }
