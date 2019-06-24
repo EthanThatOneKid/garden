@@ -12,6 +12,9 @@
 ```
 > Simulated gardening game written in Go
 
+## ☁ Download
+You can download the latest version of this game [here](dist/).
+
 ## 🎮 Gameplay Features
 
 ### 🌱 Growing Plants
