@@ -59,7 +59,7 @@ var Plants = map[string][]string{
 
     "Common Bush": []string{
       "Common Bush",
-      "",
+      "Shrubs are perennial woody plants, and therefore have persistent woody stems above ground. Usually shrubs are distinguished from trees by their height and multiple stems.",
       "a",
       "a,b",
       "ab,a",
@@ -69,7 +69,7 @@ var Plants = map[string][]string{
 
     "Tulip": []string{
       "Tulip",
-      "",
+      "Tulips originally were found in a band stretching from Southern Europe to Central Asia, but since the seventeenth century have become widely naturalised and cultivated. In their natural state they are adapted to steppes and mountainous areas with temperate climates. Flowering in the spring, they become dormant in the summer once the flowers and leaves die back, emerging above ground as a shoot from the underground bulb in early spring.",
       "a",
       "a,b,c",
       "bac,sb,cs",
@@ -110,16 +110,16 @@ var Plants = map[string][]string{
     "Succulent": []string{
       "Succulent",
       "Succulents are plants that have some parts that are more than normally thickened and fleshy, usually to retain water in arid climates or soil conditions.",
-      "a",
+      "asbsasb",
       "a,b",
       "b,a",
-      "a,b",
-      "{#( , )#}",
+      "a,b,s",
+      "{#( , )#}, ",
     },
 
     "Cactus #1": []string{
       "Cactus #1",
-      "",
+      "Cacti have spines instead of leaves. Spines can be soft or rigid, straight or curved, arranged in rows or scattered. They can reach 6 inches in length.",
       "a",
       "a,b,lsr",
       "b,lsr,asssa",
@@ -129,7 +129,7 @@ var Plants = map[string][]string{
 
     "Cactus #2": []string{
       "Cactus #2",
-      "",
+      "Since cacti live in dry areas, they need to absorb a large amount of water and store it in the stem and roots for the periods of drought. Besides storing of water, the stem plays a significant role in the process of photosynthesis.",
       "a",
       "a,b,c,d,e,f",
       "b,c,d,e,f,a",
@@ -147,115 +147,64 @@ var Plants = map[string][]string{
       "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
     },
 
-    "Bonzai": []string{
-      "Kelp",
-      "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
+    "Bonsai": []string{
+      "Bonsai",
+      "'Bonsai' refers to miniaturized, container-grown trees adhering to Japanese tradition and principles. The Japanese loanword 'bonsai' has become an umbrella term in English, attached to many unrelated forms of potted or other plants.",
       "a",
-      "a,b,c,d,e,f,j,h,i",
+      "a,b,c,d,e,f,g,h,i",
       "b,c,d,e,f,g,h,i,e",
       "a,b,c,d,e,f,g,h,i",
-      "          /)#(         ,         _.) ;/ *%;     ,     *%    \\/ #);-\"*%%* ,%^     ;*%%% )\\|.%%*%;_,  % *%%; ;%%%%*(    '   ,  ;%%%       \\(_.*%%%%. , ;%%%%%*%   _%%%%\"      ,       ;'%% \\-*%%%%%%%,    %%%;%%%%%%%         ",
+      "/)#(,    .) ;/ *%;,   *%    \\/ #).-\"*%%*,%^    ;*%%% )\\|;%%*%;_,%*%%; ;%%%%*(    ',;%%%       \\(_.*%%%%.,;%%%%%*%   _%%%%\"     ,;'%% \\\\-*%%%%%%%,%%%;%%%%%%%",
     },
 
-    // "Palm Tree": []string{
-    //   "Kelp",
-    //   "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
-    //   "a",
-    //   "a,b,c,d",
-    //   "b,c,d,a",
-    //   "a,b,c,d",
-    //   "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
-    // },
-    //
-    // "X-mas Tree": []string{
-    //   "Kelp",
-    //   "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
-    //   "a",
-    //   "a,b,c,d",
-    //   "b,c,d,a",
-    //   "a,b,c,d",
-    //   "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
-    // },
-    //
-    // "Toadstool": []string{
-    //   "Kelp",
-    //   "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
-    //   "a",
-    //   "a,b,c,d",
-    //   "b,c,d,a",
-    //   "a,b,c,d",
-    //   "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
-    // },
-    //
-    // "Common Weed": []string{
-    //   "Kelp",
-    //   "Kelp are large brown algae that live in cool, relatively shallow waters close to the shore. They grow in dense groupings much like a forest on land. These underwater towers of kelp provide food and shelter for thousands of fish, invertebrates, and marine mammal species.",
-    //   "a",
-    //   "a,b,c,d",
-    //   "b,c,d,a",
-    //   "a,b,c,d",
-    //   "( : . (  , / . : / ,  ) : . ), \\ . : \\ ",
-    // },
+    "Palm Tree": []string{
+      "Palm Tree",
+      "Most palms are distinguished by their large, compound, evergreen leaves, known as fronds, arranged at the top of an unbranched stem. However, palms exhibit an enormous diversity in physical characteristics and inhabit nearly every type of habitat within their range, from rainforests to deserts.",
+      "a",
+      "a,b,c,d,e,f,g",
+      "b,c,d,e,f,g,e",
+      "a,b,c,d,e,f,g,h",
+      "\\__/,\\__/  ,\\__/    ,\\__/     ,|___/\\_\\__/  \\___|,|__ /   _/\\__/\\_   \\__|,.-' _/   _/\\_   \\_'-.,__ _.--..--._ _",
+    },
 
+    "Daisy": []string{
+      "Daisy",
+      "In fellow Asteraceaean plants, what appears to be a single flower is actually a cluster of much smaller flowers. The overall appearance of the cluster, as a single flower, functions in attracting pollinators in the same way as the structure of an individual flower in some other plant families.",
+      "a",
+      "a,b,c,d,e,f,g,h,i,j,k,l,m,n",
+      "b,c,d,e,f,g,h,i,j,k,l,m,n,a",
+      "a,b,c,d,e,f,g,h,i,j,k,l,m,n",
+      "              |/__/   '-'     ,              Y ___'-'   '-'  ,            \\|;' (   )-(   ),           \\ |  ..>-(   )-< ,           / \\   (   )-(   ),             .|    .-.   .-.  ,             |       .-.     ,  '-'   \\__\\|             , '-'   '-'___ Y               ,(   )-(   ) ';|/              , >-(   )-<..  | /             ,(   )-(   )   / \\             , .-.   .-.    |.              ,    .-.       |               ",
+    },
 
+    "Toadstool": []string{
+      "Toadstool",
+      "A mushroom develops from a nodule, or pinhead, less than two millimeters in diameter, called a primordium, which is typically found on or near the surface of the substrate. It is formed within the mycelium, the mass of threadlike hyphae that make up the fungus.",
+      "a",
+      "a,b,c,d,e,s",
+      "b,c,d,e,s,s",
+      "a,b,c,d,e,s",
+      "\\|/(_)\\|/,(_),:_.-:':-._;,/* * * *\\,.-\"\"\"-.,",
+    },
 
+    "Giant Sequoia": []string{
+      "Giant Sequoia",
+      "Because of its size, the tree has been studied for its water pull. Water from the roots can be pushed up only a few meters by osmotic pressure but can reach extreme heights by using a system of branching capillarity in the tree's xylem and sub-pressure from evaporating water at the leaves.",
+      "a",
+      "a,b,c,d,e,f,g,h,i",
+      "b,c,d,e,f,g,h,i,b",
+      "a,b,c,d,e,f,g,h,i",
+      "/ / 7 .  \"# \\, _/   :;  |,| o     ==|,|-  (<')) |,|_        /,|   __   /_,| (('>)   |,|--    \"\" |,|   6     |",
+    },
 
-// Palm Tree
-//      __ _.--..--._ _
-//   .-' _/   _/\_   \_'-.
-//  |__ /   _/\__/\_   \__|
-//     |___/\_\__/  \___|
-//            \__/
-//            \__/
-//             \__/
-//              \__/
-//           ____\__/___
-
-// Christmas Tree
-  //     _\/_
-  //      /\
-  //      /\
-  //     /  \
-  //     /~~\o
-  //    /o   \
-  //   /~~*~~~\
-  //  o/    o \
-  //  /~~~~~~~~\~`
-  // /__*_______\
-  //      ||
-
-// Toadstool
-//   .-"""-.
-//  /* * * *\
-// :_.-:`:-._;
-//     (_)
-//  \|/(_)\|/
-
-// Weed
- //       |
- //     \|/|/
- //   \|\\|//|/
- //    \|\|/|/
- //     \\|//
- //      \|/
- //      \|/
- //       |
- // _\|/__|_
-
- // Cactus #3
- //      *-*,
- // ,*\/|`| \
- // \'  | |'| *,
- //  \ `| | |/ )
- //   | |'| , /
- //   |'| |, /
- // __|_|_|_|__
-
- // Giant Sequoia
-//                      |_    /
-//                      |-   |
-//                      |   =|
-//                      |    |
-// --------------------/ ,  . \
+    "Cactus #3": []string{
+      "Cactus #3",
+      "Certain cacti produce a substance, called mescaline, which induces hallucinogenic effects. It has been used by shamans to induce trans-like state and ensure 'communication' with G-d.",
+      "a",
+      "a,b,c,d,e",
+      "b,c,d,e,a",
+      "a,b,c,d,e",
+      "  | |'| ; / , \\ :| | |/ ),\\'  | |:| *;,;*\\/|:| \\   ,  \\'|*-*;/  ",
+    },
 
 }
