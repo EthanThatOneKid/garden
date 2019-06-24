@@ -1,4 +1,4 @@
-package garden
+package main
 
 // +--------------+
 // | Dependencies |
