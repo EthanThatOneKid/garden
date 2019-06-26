@@ -27,11 +27,15 @@ In order to obtain new plants, you must choose a plant that has a level higher t
 Your goal to complete Garden is to fill up your plant dex with 💯% of all the available plants in the game.
 
 ### 📷 Screenshots
+> __Splash Screen__
 
-> __Splash Screen__ ![splash](screenshots/splash.png)
+![splash](screenshots/splash.png)
+> __Checking the Plant Dex__
 
-> __Checking the Plant Dex__ ![dex](screenshots/dex.png)
+![dex](screenshots/dex.png)
+> __Harvesting Seeds__
 
-> __Harvesting Seeds__ ![drop](screenshots/drop.png)
+![drop](screenshots/drop.png)
+> __Visiting Plants__
 
-> __Visiting Plants__ ![bonsai](screenshots/bonsai.png)
+![bonsai](screenshots/bonsai.png)
