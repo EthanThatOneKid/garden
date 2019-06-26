@@ -10,7 +10,7 @@
   \        / \ (_ o _) /|  |  \    / |       .'    \       / |  |    |  |
    ''-...-'   '.(_,_).' ''-'   ''-'  '-----''       ''-..-'  '--'    '--'
 ```
-> Simulated gardening game written in Go
+> Simulated text-based gardening game written in GoLang
 
 ## ☁ Download
 You can download the latest version of this game [here](dist/).
@@ -26,7 +26,7 @@ In order to obtain new plants, you must choose a plant that has a level higher t
 ### 🏁 Goal
 Your goal to complete Garden is to fill up your plant dex with 💯% of all the available plants in the game.
 
-### 📷 Screenshots
+## 📷 Screenshots
 > __Splash Screen__
 
 ![splash](screenshots/splash.png)
